@@ -74,7 +74,7 @@ Material:
     - _AOEnable: 0
     - _AOPower: 0
     - _AOuv: 0
-    - _AmbientPower: 0
+    - _AmbientPower: 0.1
     - _Brightness: -0.21
     - _BumpScale: 1
     - _ColorCorrectionEnable: 0
@@ -132,7 +132,7 @@ Material:
     - _Shading_R: 1
     - _Shading_T: 1
     - _ShowAO: 0
-    - _ShowAmbientSettings: 0
+    - _ShowAmbientSettings: 1
     - _ShowBack: 1
     - _ShowBottom: 0
     - _ShowColorCorrection: 1
