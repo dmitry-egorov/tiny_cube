@@ -105,7 +105,7 @@ Material:
     - _GradientSpace: 0
     - _HFogEnable: 1
     - _LM: 1
-    - _LMPower: 0.2
+    - _LMPower: 0.5
     - _LmapBlendingMode: 2
     - _LmapEnable: 1
     - _MainTexturePower: 0
