@@ -1,22 +1,36 @@
 using System;
 using Plugins.Systematiq;
+using Plugins.UnityExtensions;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 public class Subject: MonoBehaviour
 {
-    public bool Has<TC>() where TC : QComponent => GetComponent<TC>() != null;
-    public bool Has(Type tc) => GetComponent(tc) != null;
+    public bool Has<TC>() where TC : QComponent => this.TryGetComponent<TC>(out var c) && c.isActiveAndEnabled;
+    public bool Has(Type tc) => this.TryGetComponent(tc, out var c) && ((Behaviour)c).isActiveAndEnabled;
 
-    public bool TryGet<TC>(out TC tc) where TC : QComponent => (tc = GetComponent<TC>()) != null;
+    public bool TryGet<TC>(out TC c) where TC : QComponent => this.TryGetComponent(out c) && c.isActiveAndEnabled;
     
-    public T Add<T>() where T: QComponent
+    public TC Add<TC>() where TC: QComponent
     {
-        Assert.IsFalse(Has<T>());
-        return gameObject.AddComponent<T>();
+        if (!this.TryGetComponent<TC>(out var c)) 
+            return gameObject.AddComponent<TC>();
+        
+        if (c.isActiveAndEnabled) 
+            throw new InvalidOperationException("Component already exists");
+            
+        c.enabled = true;
+        return c;
     }
 
-    public T GetOrAdd<T>() where T : QComponent => TryGet(out T c) ? c : gameObject.AddComponent<T>();
+    public TC GetOrAdd<TC>() where TC : QComponent
+    {
+        if (!this.TryGetComponent<TC>(out var c)) 
+            return gameObject.AddComponent<TC>();
+
+        if (!c.isActiveAndEnabled) c.enabled = true;
+
+        return c;
+    }
 
     public void OnEnable() => _index = QManager.Register(this);
     public void OnDisable() => QManager.Unregister(_index);

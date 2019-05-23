@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 1895295972415139040}
   - component: {fileID: 2596217037150810523}
   - component: {fileID: 8034789282864333172}
+  - component: {fileID: 6079642956591064924}
   - component: {fileID: 1217908063963099818}
   m_Layer: 0
   m_Name: Hero
@@ -405,6 +406,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88897efcadd404389535d919b100bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6079642956591064924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a34940829f471e9edec6f80f50133e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1217908063963099818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,4 +474,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a60e24295449b45be94907eed82be34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameplayDeltaTime: 0.016666668
+  GameplayFramerate: 60
+  PresentationFramerate: 30

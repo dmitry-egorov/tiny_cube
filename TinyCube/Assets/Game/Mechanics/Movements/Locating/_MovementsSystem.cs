@@ -29,43 +29,6 @@ namespace Game.Mechanics.Movements
             })
         ;
 
-        private static void RememberAllLocationsWhenInterpolatingTransform() =>
-            Q
-            .OnGameplayUpdate()
-            .Includes<CanBeLocated>()
-            .Includes<CanInterpolateTransform>()
-            .Do((Located l) =>
-            {
-                var r = Q.Subject.GetOrAdd<RemembersAllLocations>();
-                r.Add(l.Location);
-            })
-        ;
-
-        private static void RememberAllTransformsWhenInterpolatingTransform() =>
-            Q
-            .OnGameplayUpdate()
-            .Includes<CanInterpolateTransform>()
-            .Do(() =>
-            {
-                var r = Q.Subject.GetOrAdd<RemembersAllTransformPositions>();
-                r.Add(Q.Subject.transform.position);
-            })
-        ;
-        
-        private static void RememberAllPresentationTransformsWhenInterpolatingTransform() =>
-            Q
-                .OnGameplayUpdate()
-                .Includes<CanInterpolateTransform>()
-                .Includes<CanMove>()
-                .Do((Moves m) =>
-                {
-                    var r = Q.Subject.GetOrAdd<RemembersAllPresentationPositions>();
-                    var p = r.Positions == null ? Q.Subject.transform.position : r.Positions[r.Positions.Count - 1];
-                    p += m.Velocity * Q.DeltaTime;
-                    r.Add(p);
-                })
-        ;
-
         private static void InterpolateLocation() =>
             Q
             .OnPresentationUpdate()
@@ -75,5 +38,44 @@ namespace Game.Mechanics.Movements
             {
                 Q.Subject.transform.position = Vector3.Lerp(r.LastLocation, l.Location, Q.PresentationTimeRatio);
             });
+
+        #region DEBUG
+        
+        private static void RememberAllLocationsWhenInterpolatingTransform() =>
+            Q
+            .OnGameplayUpdate()
+            .Includes<CanDebugInterpolation>()
+            .Do((Located l) =>
+            {
+                var r = Q.Subject.GetOrAdd<RemembersAllLocations>();
+                r.Add(l.Location);
+            })
+        ;
+
+        private static void RememberAllTransformsWhenInterpolatingTransform() =>
+            Q
+            .OnPresentationUpdate()
+            .Includes<CanDebugInterpolation>()
+            .Do(() =>
+            {
+                var r = Q.Subject.GetOrAdd<RemembersAllTransformPositions>();
+                r.Add(Q.Subject.transform.position);
+            })
+        ;
+        
+        private static void RememberAllPresentationTransformsWhenInterpolatingTransform() =>
+            Q
+            .OnPresentationUpdate()
+            .Includes<CanDebugInterpolation>()
+            .Do((Moves m) =>
+            {
+                var r = Q.Subject.GetOrAdd<RemembersAllPresentationPositions>();
+                var p = r.Positions == null ? Q.Subject.transform.position : r.Positions[r.Positions.Count - 1];
+                p += m.Velocity * Q.DeltaTime;
+                r.Add(p);
+            })
+        ;
+        
+        #endregion
     }
 }

@@ -19,7 +19,7 @@ namespace Plugins.Systematiq
         {
             get
             {
-                //Assert.IsTrue(_isPresentationStage);
+                Assert.IsTrue(_isPresentationStage);
                 return _presentationTimeRatio;
             }
         }
