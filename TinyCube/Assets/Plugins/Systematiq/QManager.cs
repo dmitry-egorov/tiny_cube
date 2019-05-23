@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using ExtraCollections;
 using Reflections;
 using UnityEngine;
@@ -52,9 +53,9 @@ namespace Plugins.Systematiq
         
             SelectMechanicsList(stage).Add((name, () =>
             {
-                if (inc.Any(t => !Subject.Has(t)))
+                if (inc.QAny(t => !Subject.Has(t)))
                     return;
-                if (exc.Any(t => Subject.Has(t)))
+                if (exc.QAny(t => Subject.Has(t)))
                     return;
 
                 action();
@@ -79,9 +80,9 @@ namespace Plugins.Systematiq
         
             SelectMechanicsList(stage).Add((name, () =>
             {
-                if (inc.Any(t => !Subject.Has(t)))
+                if (inc.QAny(t => !Subject.Has(t)))
                     return;
-                if (exc.Any(t => Subject.Has(t)))
+                if (exc.QAny(t => Subject.Has(t)))
                     return;
 
                 if (!Subject.TryGet(out T1 c1))
@@ -111,9 +112,9 @@ namespace Plugins.Systematiq
             SelectMechanicsList(stage)
             .Add((name, () =>
             {
-                if (inc.Any(t => !Subject.Has(t)))
+                if (inc.QAny(t => !Subject.Has(t)))
                     return;
-                if (exc.Any(t => Subject.Has(t)))
+                if (exc.QAny(t => Subject.Has(t)))
                     return;
 
                 if (!Subject.TryGet(out T1 c1))

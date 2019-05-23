@@ -11,10 +11,12 @@ namespace Game.Mechanics.Movements
             AddLocationWhenCanBeLocatedAndNotLocated();
             AddMovementWhenCanMoveAndNotMoving();
             
+            //RememberAllLocationsWhenInterpolatingTransform();
             RememberLastLocationWhenInterpolatingTransform();
             ApplyVelocityWhenMoving();
             
             InterpolateLocation();
+            //RememberAllTransformsWhenInterpolatingTransform();
         }
     }
 }
