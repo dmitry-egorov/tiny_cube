@@ -322,7 +322,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.7
+      value: -20.87
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
@@ -332,7 +332,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.75
+      value: -5.7
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
@@ -342,7 +342,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
@@ -352,7 +352,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
@@ -367,7 +367,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a6e816be4e7942d48a1e1c7712e78ec4,
         type: 3}
@@ -481,6 +481,11 @@ PrefabInstance:
     - target: {fileID: 1863033598060854443, guid: 13ab53a7bb0db3247b3433685ec5b9ff,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863033597716860526, guid: 13ab53a7bb0db3247b3433685ec5b9ff,
+        type: 3}
+      propertyPath: m_ShowToolkit
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

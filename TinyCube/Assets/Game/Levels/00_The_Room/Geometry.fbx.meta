@@ -12,6 +12,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: BedAlt
+    second: {fileID: 2100000, guid: 123a28acc6b394060bf85291b465a1cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BedAlt2
+    second: {fileID: 2100000, guid: 7c4b0422d110f42c8ac0f7c0ebf1a545, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Floor
     second: {fileID: 2100000, guid: 4bb47142a4e2e904990ca811e14bf902, type: 2}
   - first:
@@ -38,7 +48,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Table
-    second: {fileID: 2100000, guid: 2d0a2ef142280e047a469b784bde03bc, type: 2}
+    second: {fileID: 2100000, guid: 7c4b0422d110f42c8ac0f7c0ebf1a545, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

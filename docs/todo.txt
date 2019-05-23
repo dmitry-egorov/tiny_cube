@@ -1,0 +1,5 @@
+- gameplay update
+- moving on a spline?
+- jumping
+- collisions
+- initialization

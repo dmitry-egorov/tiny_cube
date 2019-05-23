@@ -9,7 +9,7 @@
         _Exponent ("Exponent", Float) = 1.0
         
         _DirX ("Direction X", Range(0, 180)) = 0
-        _DirY ("Direction Y", Range(0, 180)) = 0
+        _DirY ("Direction Y", Range(-180, 180)) = 0
         
         [HideInInspector]_UpVector ("Direction", Vector) = (0, 1, 0, 0)
     }

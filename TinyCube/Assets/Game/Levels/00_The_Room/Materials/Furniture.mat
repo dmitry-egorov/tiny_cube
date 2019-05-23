@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Furniture
   m_Shader: {fileID: 4800000, guid: 7f50d1ec77e2cc9459ca9d36924ffc53, type: 3}
-  m_ShaderKeywords: AO_ON BOTTOMSOLID FRONTSOLID LIGHTMAP_AO RIGHTSOLID TOPSOLID _AOUV_UV0
+  m_ShaderKeywords: AO_ON BACKSOLID LEFTSOLID LIGHTMAP_AO RIGHTSOLID TOPSOLID _AOUV_UV0
     _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_USE_GLOBAL _GRADSETTINGS_D_USE_GLOBAL
     _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_USE_GLOBAL
     _GRADSETTINGS_T_USE_GLOBAL _LMAPBLENDINGMODE_AO _LMAPENABLE_ON _LM_ON _MODE_OPAQUE
@@ -129,23 +129,23 @@ Material:
     - _Rotation_R: 0
     - _Rotation_T: 0
     - _Saturation: 1
-    - _Shading_B: 0
-    - _Shading_D: 1
-    - _Shading_F: 1
-    - _Shading_L: 0
+    - _Shading_B: 1
+    - _Shading_D: 0
+    - _Shading_F: 0
+    - _Shading_L: 1
     - _Shading_R: 1
     - _Shading_T: 1
     - _ShowAO: 0
     - _ShowAmbientSettings: 1
-    - _ShowBack: 0
+    - _ShowBack: 1
     - _ShowBottom: 1
     - _ShowColorCorrection: 0
     - _ShowCustomShading: 1
     - _ShowFog: 0
-    - _ShowFront: 1
+    - _ShowFront: 0
     - _ShowGlobalGradientSettings: 0
     - _ShowLMap: 1
-    - _ShowLeft: 0
+    - _ShowLeft: 1
     - _ShowRight: 1
     - _ShowTexture: 0
     - _ShowTop: 1
@@ -157,10 +157,10 @@ Material:
     - _AOColor: {r: 1, g: 1, b: 1, a: 1}
     - _AmbientColor: {r: 0.7490196, g: 0.75686276, b: 0.7058824, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1_B: {r: 0, g: 0, b: 0, a: 1}
+    - _Color1_B: {r: 0.40743524, g: 0.41086113, b: 0.45882344, a: 1}
     - _Color1_D: {r: 0.24218822, g: 0.26902336, b: 0.2862745, a: 1}
     - _Color1_F: {r: 0.4074353, g: 0.41086116, b: 0.45882353, a: 1}
-    - _Color1_L: {r: 0, g: 0, b: 0, a: 1}
+    - _Color1_L: {r: 0.25294116, g: 0.25623527, b: 0.29411763, a: 1}
     - _Color1_R: {r: 0.2529412, g: 0.2562353, b: 0.29411766, a: 1}
     - _Color1_T: {r: 0.60578436, g: 0.61005545, b: 0.654902, a: 1}
     - _Color2_B: {r: 0, g: 0, b: 0, a: 1}
