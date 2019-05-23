@@ -14,7 +14,8 @@ namespace Game.Mechanics.Movements
             //RememberAllLocationsWhenInterpolatingTransform();
             RememberLastLocationWhenInterpolatingTransform();
             ApplyVelocityWhenMoving();
-            
+
+            //RememberAllPresentationTransformsWhenInterpolatingTransform();
             InterpolateLocation();
             //RememberAllTransformsWhenInterpolatingTransform();
         }

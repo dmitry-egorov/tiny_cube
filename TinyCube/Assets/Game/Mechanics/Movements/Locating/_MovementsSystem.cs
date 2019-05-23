@@ -44,13 +44,26 @@ namespace Game.Mechanics.Movements
         private static void RememberAllTransformsWhenInterpolatingTransform() =>
             Q
             .OnGameplayUpdate()
-            .Includes<CanBeLocated>()
             .Includes<CanInterpolateTransform>()
             .Do(() =>
             {
                 var r = Q.Subject.GetOrAdd<RemembersAllTransformPositions>();
                 r.Add(Q.Subject.transform.position);
             })
+        ;
+        
+        private static void RememberAllPresentationTransformsWhenInterpolatingTransform() =>
+            Q
+                .OnGameplayUpdate()
+                .Includes<CanInterpolateTransform>()
+                .Includes<CanMove>()
+                .Do((Moves m) =>
+                {
+                    var r = Q.Subject.GetOrAdd<RemembersAllPresentationPositions>();
+                    var p = r.Positions == null ? Q.Subject.transform.position : r.Positions[r.Positions.Count - 1];
+                    p += m.Velocity * Q.DeltaTime;
+                    r.Add(p);
+                })
         ;
 
         private static void InterpolateLocation() =>
