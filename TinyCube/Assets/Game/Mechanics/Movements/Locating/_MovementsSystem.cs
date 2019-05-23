@@ -4,75 +4,59 @@ namespace Game.Mechanics.Movements
 {
     public partial class _MovementsSystem
     {
-        private static void AddLocationWhenCanBeLocatedAndNotLocated() =>
-            Q
-            .OnGameplayUpdate()
-            .Includes<CanBeLocated>()
-            .Excludes<Located>()
+        void Add_location() =>
+            Gameplay()
+            .Includes<LocatedOnStart>().Excludes<Located>()
             .Do(() =>
             {
-                var s = Q.Subject;
-                var l = s.Add<Located>();
-                l.Location = s.transform.position;
+                var l = Subject.Add<Located>();
+                
+                l.Location = Transform.position;
             })
         ;
         
-        private static void RememberLastLocationWhenInterpolatingTransform() =>
-            Q
-            .OnGameplayUpdate()
-            .Includes<CanBeLocated>()
-            .Includes<CanInterpolateTransform>()
+        void Remember_last_location() =>
+            Gameplay()
+            .Includes<LocatedOnStart, InterpolatesLocation>()
             .Do((Located l) =>
             {
-                var r = Q.Subject.GetOrAdd<RemembersLastLocation>();
+                var r = Subject.GetOrAdd<RemembersLastLocation>();
+                
                 r.LastLocation = l.Location;
             })
         ;
 
-        private static void InterpolateLocation() =>
-            Q
-            .OnPresentationUpdate()
-            .Includes<CanBeLocated>()
-            .Includes<CanInterpolateTransform>()
-            .Do((Located l, RemembersLastLocation r) =>
+        void Apply_interpolated_location() =>
+            Presentation()
+            .Includes<LocatedOnStart, InterpolatesLocation>()
+            .Do((Located l, RemembersLastLocation rll) =>
             {
-                Q.Subject.transform.position = Vector3.Lerp(r.LastLocation, l.Location, Q.PresentationTimeRatio);
-            });
+                var ll = rll.LastLocation;
+                var cl = l.Location;
+                var r = PresentationTimeRatio;
+                
+                Transform.position = Vector3.Lerp(ll, cl, r);
+            })
+        ;
 
         #region DEBUG
-        
-        private static void RememberAllLocationsWhenInterpolatingTransform() =>
-            Q
-            .OnGameplayUpdate()
-            .Includes<CanDebugInterpolation>()
+        void Remember_all_locations() =>
+            Gameplay()
+            .Includes<DebugsLocationInterpolation, InterpolatesLocation>()
             .Do((Located l) =>
             {
-                var r = Q.Subject.GetOrAdd<RemembersAllLocations>();
+                var r = Subject.GetOrAdd<RemembersAllLocations>();
                 r.Add(l.Location);
             })
         ;
 
-        private static void RememberAllTransformsWhenInterpolatingTransform() =>
-            Q
-            .OnPresentationUpdate()
-            .Includes<CanDebugInterpolation>()
+        void Remember_all_transforms() =>
+            Presentation()
+            .Includes<DebugsLocationInterpolation, InterpolatesLocation>()
             .Do(() =>
             {
-                var r = Q.Subject.GetOrAdd<RemembersAllTransformPositions>();
-                r.Add(Q.Subject.transform.position);
-            })
-        ;
-        
-        private static void RememberAllPresentationTransformsWhenInterpolatingTransform() =>
-            Q
-            .OnPresentationUpdate()
-            .Includes<CanDebugInterpolation>()
-            .Do((Moves m) =>
-            {
-                var r = Q.Subject.GetOrAdd<RemembersAllPresentationPositions>();
-                var p = r.Positions == null ? Q.Subject.transform.position : r.Positions[r.Positions.Count - 1];
-                p += m.Velocity * Q.DeltaTime;
-                r.Add(p);
+                var r = Subject.GetOrAdd<RemembersAllTransformPositions>();
+                r.Add(Transform.position);
             })
         ;
         

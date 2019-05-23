@@ -4,20 +4,18 @@ using Plugins.Systematiq;
 namespace Game.Mechanics.Movements
 {
     [UsedImplicitly]
-    public partial class _MovementsSystem: ISystem
+    public partial class _MovementsSystem: QSystem
     {
-        public void Register()
+        public override void Register()
         {
-            AddLocationWhenCanBeLocatedAndNotLocated();
-            AddMovementWhenCanMoveAndNotMoving();
+            Add_location();
             
-            RememberAllLocationsWhenInterpolatingTransform();
-            RememberLastLocationWhenInterpolatingTransform();
-            ApplyVelocityWhenMoving();
+            Remember_all_locations();
+            Remember_last_location();
+            Apply_movement_velocity();
 
-            RememberAllPresentationTransformsWhenInterpolatingTransform();
-            InterpolateLocation();
-            RememberAllTransformsWhenInterpolatingTransform();
+            Apply_interpolated_location();
+            Remember_all_transforms();
         }
     }
 }

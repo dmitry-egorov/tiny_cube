@@ -1,5 +1,14 @@
-- gameplay update
 - moving on a spline?
 - jumping
 - collisions
+- camera follow
+
+- desert level
+
+- running animation
+- jumping animation
+
 - initialization
+- animated bloom
+
++ gameplay update

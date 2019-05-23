@@ -18,6 +18,14 @@ namespace Plugins.Systematiq
             Stage = stage;
         }
 
+        public QRegistrationContext Includes<T1, T2>() 
+            where T1 : QComponent where T2 : QComponent 
+            => Includes<T1>().Includes<T2>();
+        
+        public QRegistrationContext Includes<T1, T2, T3>() 
+            where T1 : QComponent where T2 : QComponent where T3: QComponent
+            => Includes<T1>().Includes<T2>().Includes<T3>();
+        
         public QRegistrationContext Includes<T>() where T: QComponent
         {
             var included = Included ?? ImmutableList<Type>.Empty;

@@ -12,7 +12,6 @@ namespace Plugins.UnityExtensions
             return c != null;
         }
 
-
         public static bool TryGetComponent(this Component c, Type t, out Component co) => c.gameObject.TryGetComponent(t, out co);
         public static bool TryGetComponent(this GameObject go, Type t, out Component c)
         {

@@ -16,6 +16,7 @@ namespace Reflections
         public static IEnumerable<T> InstantiateAllDerivedTypes<T>(this AppDomain domain) =>
             domain
             .FindAllDerivedTypes<T>()
+            .Where(t => !t.IsAbstract && !t.IsInterface)
             .Select(t => (T) Activator.CreateInstance(t))
         ;
     }
