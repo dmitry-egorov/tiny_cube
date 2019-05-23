@@ -4,11 +4,24 @@
     {
         private static void ApplyVelocityWhenMoving() =>
             Q
-            .OnPresentationUpdate()
+            .OnGameplayUpdate()
             .Includes<CanMove>()
-            .Do((Moves m) => 
+            .Includes<CanBeLocated>()
+            .Do((Located l, Moves m) => 
             {
-                Q.Subject.transform.position += m.Velocity * Q.DeltaTime;
+                l.Location += m.Velocity * Q.DeltaTime;
+            })
+        ;
+        
+        private static void AddMovementWhenCanMoveAndNotMoving() =>
+            Q
+            .OnGameplayUpdate()
+            .Excludes<Moves>()
+            .Do((CanMove cm) => 
+            {
+                var s = Q.Subject;
+                var m = s.Add<Moves>();
+                m.Velocity = cm.InitialVelocity;
             })
         ;
     }

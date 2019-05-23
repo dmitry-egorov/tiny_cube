@@ -736,7 +736,6 @@ namespace Minimalist
         bool drawGradintGizmo, drawRotationGizmo, deawFogGizmo;
         Event guiEvent;
         public static MinimalistClipboard MClipboard;
-        private bool lwrp = false;
 
         public void UndoRedoPerformed(MaterialProperty[] _props)
         {
@@ -959,8 +958,6 @@ namespace Minimalist
             }
         }
 
-        private bool firstTimeApply = true;
-
         public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
         {
             matEditor = materialEditor;
@@ -1052,7 +1049,7 @@ namespace Minimalist
         private void OnClosed()
         {
             Debug.Log("Closed");
-            SceneView.onSceneGUIDelegate -= SceneGUI;
+            SceneView.duringSceneGui -= SceneGUI;
         }
 
         private void TextureModule()
@@ -1234,8 +1231,8 @@ namespace Minimalist
 
 
                                                     //Start SceneView code
-                                                    SceneView.onSceneGUIDelegate -= SceneGUI;
-                                                    SceneView.onSceneGUIDelegate += SceneGUI;
+                                                    SceneView.duringSceneGui -= SceneGUI;
+                                                    SceneView.duringSceneGui += SceneGUI;
 
                                                 }
                                                 else

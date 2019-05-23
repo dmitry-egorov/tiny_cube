@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Plugins.Systematiq;
 
 namespace Game.Mechanics.Movements
 {
@@ -7,7 +8,13 @@ namespace Game.Mechanics.Movements
     {
         public void Register()
         {
+            AddLocationWhenCanBeLocatedAndNotLocated();
+            AddMovementWhenCanMoveAndNotMoving();
+            
+            RememberLastLocationWhenInterpolatingTransform();
             ApplyVelocityWhenMoving();
+            
+            InterpolateLocation();
         }
     }
 }

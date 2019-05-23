@@ -1,4 +1,7 @@
-public interface ISystem
+namespace Plugins.Systematiq
 {
-    void Register();
+    public interface ISystem
+    {
+        void Register();
+    }
 }

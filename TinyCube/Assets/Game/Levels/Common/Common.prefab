@@ -343,6 +343,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8788968281267176709}
+  - component: {fileID: 1895295972415139040}
+  - component: {fileID: 2596217037150810523}
+  - component: {fileID: 8034789282864333172}
+  - component: {fileID: 1217908063963099818}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -365,6 +369,55 @@ Transform:
   m_Father: {fileID: 1863033598060854443}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1895295972415139040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5579f58830744819127129708cca6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2596217037150810523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5907f9e47c943ad9066954f96076208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8034789282864333172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88897efcadd404389535d919b100bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1217908063963099818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f199251572f2c46f0bcfbff8e9a9e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialVelocity: {x: 0, y: 0, z: 10}
 --- !u!1 &8700188705216322535
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,3 +461,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a60e24295449b45be94907eed82be34c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameplayDeltaTime: 0.016666668
