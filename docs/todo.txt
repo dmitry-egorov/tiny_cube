@@ -3,6 +3,7 @@
 - collisions
 - camera follow
 
+- clock in a room(a black romb)
 - desert level
 
 - running animation
