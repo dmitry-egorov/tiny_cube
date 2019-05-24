@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using Plugins.Systematiq;
+using Plugins.Lanski.Subjective;
 
 namespace Game.Mechanics.Movements
 {

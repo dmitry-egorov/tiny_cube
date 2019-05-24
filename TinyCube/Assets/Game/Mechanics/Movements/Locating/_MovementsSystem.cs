@@ -5,30 +5,28 @@ namespace Game.Mechanics.Movements
     public partial class _MovementsSystem
     {
         void Add_location() =>
-            Gameplay()
-            .Includes<LocatedOnStart>().Excludes<Located>()
+            OnGameplay()
+            .When<LocatedOnStart>().ExceptWhen<Located>()
             .Do(() =>
             {
-                var l = Subject.Add<Located>();
-                
+                var l = Add<Located>();
                 l.Location = Transform.position;
             })
         ;
         
         void Remember_last_location() =>
-            Gameplay()
-            .Includes<LocatedOnStart, InterpolatesLocation>()
+            OnGameplay()
+            .When<LocatedOnStart, InterpolatesLocation>()
             .Do((Located l) =>
             {
-                var r = Subject.GetOrAdd<RemembersLastLocation>();
-                
+                var r = GetOrAdd<RemembersLastLocation>();
                 r.LastLocation = l.Location;
             })
         ;
 
         void Apply_interpolated_location() =>
-            Presentation()
-            .Includes<LocatedOnStart, InterpolatesLocation>()
+            OnPresentation()
+            .When<LocatedOnStart, InterpolatesLocation>()
             .Do((Located l, RemembersLastLocation rll) =>
             {
                 var ll = rll.LastLocation;
@@ -41,21 +39,21 @@ namespace Game.Mechanics.Movements
 
         #region DEBUG
         void Remember_all_locations() =>
-            Gameplay()
-            .Includes<DebugsLocationInterpolation, InterpolatesLocation>()
+            OnGameplay()
+            .When<InterpolatesLocation, DebugsLocationInterpolation>()
             .Do((Located l) =>
             {
-                var r = Subject.GetOrAdd<RemembersAllLocations>();
+                var r = GetOrAdd<RemembersAllLocations>();
                 r.Add(l.Location);
             })
         ;
 
         void Remember_all_transforms() =>
-            Presentation()
-            .Includes<DebugsLocationInterpolation, InterpolatesLocation>()
+            OnPresentation()
+            .When<InterpolatesLocation, DebugsLocationInterpolation>()
             .Do(() =>
             {
-                var r = Subject.GetOrAdd<RemembersAllTransformPositions>();
+                var r = GetOrAdd<RemembersAllTransformPositions>();
                 r.Add(Transform.position);
             })
         ;

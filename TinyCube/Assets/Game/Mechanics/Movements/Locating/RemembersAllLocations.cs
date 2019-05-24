@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Plugins.Lanski.Subjective;
 using UnityEngine;
 
 public class RemembersAllLocations: QComponent
