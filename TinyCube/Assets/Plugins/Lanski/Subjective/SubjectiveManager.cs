@@ -19,7 +19,7 @@ namespace Plugins.Lanski.Subjective
         {
             var fdt = GameplayFramerate != 0 ? 1.0f / GameplayFramerate : Time.fixedDeltaTime;
             var dt = Time.deltaTime;
-            QManager.Execute(dt, fdt);
+            SManager.Execute(dt, fdt);
         }
     }
 }

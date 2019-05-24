@@ -1,7 +1,8 @@
 ﻿using Plugins.Lanski.Subjective;
-using UnityEngine;
 
-public class Moves : QComponent
+public class Moves : SubjectComponent
 {
-    public Vector3 Velocity;
+    public float Speed;
+    
+    public void Stop() => RemoveSelf();
 }

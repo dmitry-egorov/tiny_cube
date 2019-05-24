@@ -1,15 +1,17 @@
-- moving on a spline?
 - jumping
 - collisions
-- camera follow
+- jumping onto a path
+- falling into a pit
 
-- clock in a room(a black romb)
 - desert level
 
 - running animation
 - jumping animation
 
-- initialization
-- animated bloom
 
+
++ stencil hiding character to show background
++ moving on a spline
++ camera follow
++ clock in a room(a black romb)
 + gameplay update

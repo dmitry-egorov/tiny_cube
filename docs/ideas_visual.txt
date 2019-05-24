@@ -1,0 +1,4 @@
+- animated bloom
+- animated background
+
+- repeatedly return to the room, it expands and gains color

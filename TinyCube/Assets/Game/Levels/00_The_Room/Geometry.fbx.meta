@@ -22,6 +22,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Clock
+    second: {fileID: 2100000, guid: f135ca6eef8e247e0b191d9049b62439, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Floor
     second: {fileID: 2100000, guid: 4bb47142a4e2e904990ca811e14bf902, type: 2}
   - first:

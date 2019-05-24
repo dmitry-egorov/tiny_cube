@@ -1,0 +1,10 @@
+- singleton components
+- transient components
+
+- initialized component
+
+- condition lambda
+
+- custom subject editor depending on the components?
+- prepackaged objects/classes
+
