@@ -16,7 +16,6 @@ namespace Game.Mechanics.Movements
                 Remember_last_location();
                 Remember_last_rotation();
             
-                Apply_movement_velocity_when_not_following_a_path();
                 Apply_movement_velocity_when_following_a_path();
                 Switch_follow_target_when_reaching_segments_end();
                 Stop_when_reaching_segments_end_and_theres_no_next_segment();

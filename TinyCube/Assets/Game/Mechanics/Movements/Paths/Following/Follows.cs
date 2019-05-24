@@ -1,6 +1,5 @@
 using Plugins.Lanski.Subjective;
 using UnityEngine;
-using UnityEngine.Serialization;
 using static Direction;
 
 public class Follows: SubjectComponent

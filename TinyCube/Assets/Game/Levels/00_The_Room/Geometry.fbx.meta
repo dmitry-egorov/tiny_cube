@@ -52,8 +52,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Switch
+    second: {fileID: 2100000, guid: 5103677242e3d46089f87c571fe6d506, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Table
-    second: {fileID: 2100000, guid: 7c4b0422d110f42c8ac0f7c0ebf1a545, type: 2}
+    second: {fileID: 2100000, guid: 60e3ccc4be29a4eee8c694a698eb6169, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Table2
+    second: {fileID: 2100000, guid: 46cedfa43eadf4e288b02c004a6164bc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -33,7 +33,7 @@ Transform:
   - {fileID: 1863033597066718935}
   m_Father: {fileID: 1863033598060854443}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: -45, z: 0}
 --- !u!114 &6427792804918627836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1863033596851369157}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30.000002, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1863033597716860524
 Camera:
   m_ObjectHideFlags: 0
@@ -423,6 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88897efcadd404389535d919b100bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastLocation: {x: 0, y: 0, z: 0}
 --- !u!114 &7018840057477933172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbd4d0e66ab4205bf8d9c0b4eed48c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8700188705216322535
 GameObject:
   m_ObjectHideFlags: 0

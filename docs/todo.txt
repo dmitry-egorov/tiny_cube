@@ -8,7 +8,9 @@
 - running animation
 - jumping animation
 
-
+- turning around by swiping
+- switching paths by swiping
+- curved path
 
 + stencil hiding character to show background
 + moving on a spline

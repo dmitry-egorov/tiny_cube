@@ -1,4 +1,5 @@
 - animated bloom
 - animated background
 
+- during intro animation can jump into bed by swiping at the right time
 - repeatedly return to the room, it expands and gains color

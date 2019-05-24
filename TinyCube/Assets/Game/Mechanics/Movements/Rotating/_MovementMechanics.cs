@@ -1,5 +1,4 @@
-﻿using Plugins.UnityExtensions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Mechanics.Movements
 {
