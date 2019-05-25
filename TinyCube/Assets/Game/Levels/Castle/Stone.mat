@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Stone
   m_Shader: {fileID: 4800000, guid: 7f50d1ec77e2cc9459ca9d36924ffc53, type: 3}
-  m_ShaderKeywords: BACKSOLID BOTTOMSOLID FRONTSOLID HEIGHT_FOG LEFTSOLID LIGHTMAP_AO
+  m_ShaderKeywords: BACKSOLID BOTTOMSOLID FRONTSOLID HEIGHT_FOG LIGHTMAP_AO RIGHTSOLID
     TOPSOLID _AOUV_UV0 _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_USE_GLOBAL _GRADSETTINGS_D_USE_GLOBAL
     _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_USE_GLOBAL
     _GRADSETTINGS_T_USE_GLOBAL _HFOGENABLE_ON _LMAPBLENDINGMODE_AO _LMAPENABLE_ON
@@ -128,23 +128,23 @@ Material:
     - _Shading_B: 1
     - _Shading_D: 1
     - _Shading_F: 1
-    - _Shading_L: 1
-    - _Shading_R: 0
+    - _Shading_L: 0
+    - _Shading_R: 1
     - _Shading_T: 1
     - _ShowAO: 0
     - _ShowAmbientSettings: 1
-    - _ShowBack: 0
-    - _ShowBottom: 0
+    - _ShowBack: 1
+    - _ShowBottom: 1
     - _ShowColorCorrection: 1
     - _ShowCustomShading: 1
     - _ShowFog: 1
-    - _ShowFront: 0
+    - _ShowFront: 1
     - _ShowGlobalGradientSettings: 0
     - _ShowLMap: 1
     - _ShowLeft: 0
-    - _ShowRight: 0
+    - _ShowRight: 1
     - _ShowTexture: 0
-    - _ShowTop: 0
+    - _ShowTop: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _UnityFogEnable: 0

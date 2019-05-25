@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Room
   m_Shader: {fileID: 4800000, guid: 7f50d1ec77e2cc9459ca9d36924ffc53, type: 3}
-  m_ShaderKeywords: AO_ON BACKSOLID LEFTSOLID LIGHTMAP_AO TOPSOLID _AOUV_UV0 _GRADIENTSPACE_WORLD_SPACE
+  m_ShaderKeywords: AO_ON BACKSOLID LIGHTMAP_AO RIGHTSOLID TOPSOLID _AOUV_UV0 _GRADIENTSPACE_WORLD_SPACE
     _GRADSETTINGS_B_USE_GLOBAL _GRADSETTINGS_D_USE_GLOBAL _GRADSETTINGS_F_USE_GLOBAL
     _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_USE_GLOBAL _GRADSETTINGS_T_USE_GLOBAL
     _LMAPBLENDINGMODE_AO _LMAPENABLE_ON _LM_ON _MODE_OPAQUE _OTHERSETTINGS_ON _REALTIMESHADOW_ON
@@ -131,8 +131,8 @@ Material:
     - _Shading_B: 1
     - _Shading_D: 0
     - _Shading_F: 0
-    - _Shading_L: 1
-    - _Shading_R: 0
+    - _Shading_L: 0
+    - _Shading_R: 1
     - _Shading_T: 1
     - _ShowAO: 0
     - _ShowAmbientSettings: 1
@@ -145,7 +145,7 @@ Material:
     - _ShowGlobalGradientSettings: 0
     - _ShowLMap: 1
     - _ShowLeft: 1
-    - _ShowRight: 0
+    - _ShowRight: 1
     - _ShowTexture: 0
     - _ShowTop: 1
     - _SrcBlend: 1

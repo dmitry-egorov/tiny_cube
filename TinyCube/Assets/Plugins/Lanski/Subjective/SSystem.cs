@@ -19,5 +19,10 @@ namespace Plugins.Lanski.Subjective
         public static bool TryGet<TC>(out TC c) where TC : SubjectComponent => Subject.TryGet(out c);
         public static TC Add<TC>() where TC : SubjectComponent => Subject.Add<TC>();
         public static TC GetOrAdd<TC>() where TC : SubjectComponent => Subject.GetOrAdd<TC>();
+        protected TC Require<TC>() where TC : SubjectComponent => Subject.Require<TC>();
+        protected void Remove<TC>() where TC : SubjectComponent => Subject.Remove<TC>();
+
+        protected bool GetKey(KeyCode i) => S.GetKey(i);
+        protected bool GetKeyDown(KeyCode i) => S.GetKeyDown(i);
     }
 }

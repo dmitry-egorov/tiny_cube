@@ -15,12 +15,23 @@ namespace Game.Mechanics.Movements
                 Debug_Remember_all_locations();
                 Remember_last_location();
                 Remember_last_rotation();
+                
+                Advance_airborne_elapsed_time();
+
+                Start_jumping_on_click();
+                Start_falling_when_finished_jumping();
             
-                Apply_movement_velocity_when_following_a_path();
-                Switch_follow_target_when_reaching_segments_end();
-                Stop_when_reaching_segments_end_and_theres_no_next_segment();
-                Apply_location_when_following_a_path();
-                Apply_rotation_when_following_a_path();
+                Apply_paths_movement_velocity();
+                Handle_reaching_paths_segments_end();
+                Apply_paths_planar_location();
+                Apply_paths_rotation();
+                
+                Apply_airborne_height();
+                Land_when_height_is_below_path();
+                
+                Apply_path_height_when_not_airborne();
+
+                Update_path_colliders();
             }
 
             // Presentation

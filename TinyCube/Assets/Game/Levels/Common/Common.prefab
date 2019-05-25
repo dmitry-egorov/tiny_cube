@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   X: 1
-  Y: 1
+  Y: 0
   Z: 1
   Strength: 0.2
   Target: {fileID: 8788968281267176709}
@@ -215,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863033597716860520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 22, z: -20}
+  m_LocalPosition: {x: 0, y: 12, z: -80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1863033596851369157}
@@ -244,11 +244,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0
+  far clip plane: 200
   field of view: 60
   orthographic: 1
-  orthographic size: 42
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -375,8 +375,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8788968281267176709}
   - component: {fileID: 1895295972415139040}
+  - component: {fileID: 7915152541207696684}
   - component: {fileID: 8034789282864333172}
   - component: {fileID: 7018840057477933172}
+  - component: {fileID: 3353647713775958820}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -393,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 3402345231541126939}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1863033596966192954}
   m_Father: {fileID: 1863033598060854443}
@@ -411,6 +413,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5579f58830744819127129708cca6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7915152541207696684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3cb0618c5b417f95ca12017334e518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationExpStrength: 0.1
+  MinRotationSpeed: 180
 --- !u!114 &8034789282864333172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +453,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3353647713775958820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9223759ec14014e9ebb60ef0c2b15fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumping_curve:
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1.8125263
+        outSlope: 1.8125263
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.030612243
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.30264825
+        outSlope: 0.30264825
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.06250006
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Magnitude: 6
+    TimeScale: 0.4
+  falling_curve:
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.36579087
+        outSlope: 0.36579087
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.06122451
+      - serializedVersion: 3
+        time: 0.8518495
+        value: -1
+        inSlope: -2.8453054
+        outSlope: -2.8453054
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.022759633
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Magnitude: 13
+    TimeScale: 0.6
 --- !u!1 &8700188705216322535
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,4 +563,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameplayFramerate: 60
-  PresentationFramerate: 30
+  PresentationFramerate: 60

@@ -3,6 +3,25 @@ using UnityEngine;
 
 namespace Plugins.UnityExtensions
 {
+    public static class ExtensionMonoBehaviourGetOrAddComponent
+    {
+        public static TC GetOrAddComponent<TC>(this GameObject go) where TC : Component
+        {
+            if (!go.TryGetComponent<TC>(out var r))
+                r = go.AddComponent<TC>();
+            
+            return r;
+        }
+        
+        public static TC GetOrAddComponent<TC>(this Component c) where TC : Component
+        {
+            if (!c.TryGetComponent<TC>(out var r))
+                r = c.gameObject.AddComponent<TC>();
+            
+            return r;
+        }
+    }
+    
     public static class ExtensionMonoBehaviourTryGetComponent
     {
         public static bool TryGetComponent<TC>(this Component c, out TC co) where TC : Component => c.gameObject.TryGetComponent(out co);

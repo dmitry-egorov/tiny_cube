@@ -1,6 +1,7 @@
 using System;
 using Plugins.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Plugins.Lanski.Subjective
 {
@@ -10,6 +11,13 @@ namespace Plugins.Lanski.Subjective
         public bool Has(Type tc) => this.TryGetComponent(tc, out var c) && ((Behaviour)c).isActiveAndEnabled;
 
         public bool TryGet<TC>(out TC c) where TC : SubjectComponent => this.TryGetComponent(out c) && c.isActiveAndEnabled;
+        
+        public TC Require<TC>() where TC : SubjectComponent
+        {
+            var c = GetComponent<TC>();
+            Assert.IsNotNull(c);
+            return c;
+        }
     
         public TC Add<TC>() where TC: SubjectComponent
         {
@@ -53,7 +61,5 @@ namespace Plugins.Lanski.Subjective
         public void OnDisable() => SManager.Unregister(_index);
 
         [NonSerialized] int _index;
-
-        
     }
 }

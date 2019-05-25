@@ -19,9 +19,18 @@ namespace Plugins.Lanski.Subjective
         {
             get
             {
-                Assert.IsTrue(_isPresentationStage);
+                Assert.IsTrue(_currentMechanicStage == MechanicStage.Presentation);
                 return _presentationTimeRatio;
             }
+        }
+
+        public static bool GetKey(KeyCode key) => Input.GetKey(key);
+        public static bool GetKeyDown(KeyCode key)
+        {
+            if (_currentMechanicStage != MechanicStage.Gameplay)
+                return Input.GetKeyDown(key);
+
+            return GetOrCreateKeyWatcher(key).GetKeyDown();
         }
 
         public static int Register(Subject subject)
@@ -178,35 +187,48 @@ namespace Plugins.Lanski.Subjective
             void ExecuteGameplayMechanics()
             {
                 _deltaTime = fdt;
+                _currentMechanicStage = MechanicStage.Gameplay;
 
-                while (_gameplayTime < _presentationTime)
+                try
                 {
-                    Profiler.BeginSample("Gameplay Mechanics");
-                    try
+                    while (_gameplayTime < _presentationTime)
                     {
-                        foreach (var m in _gameplayMechanics)
+                        Profiler.BeginSample("Gameplay Mechanics");
+                        try
                         {
-                            Profiler.BeginSample(m.name);
-                            try
+                            foreach (var m in _gameplayMechanics)
                             {
-                                foreach (var s in _subjects)
+                                Profiler.BeginSample(m.name);
+                                try
                                 {
-                                    Subject = s;
-                                    m.action();
+                                    foreach (var s in _subjects)
+                                    {
+                                        Subject = s;
+                                        m.action();
+                                    }
+                                }
+                                finally
+                                {
+                                    Profiler.EndSample();
                                 }
                             }
-                            finally
+
+                            foreach (var keyWatcher in _keyWatchers)
                             {
-                                Profiler.EndSample();
+                                keyWatcher.Update();
                             }
                         }
-                    }
-                    finally
-                    {
-                        Profiler.EndSample();
+                        finally
+                        {
+                            Profiler.EndSample();
                     
-                        _gameplayTime += fdt;
+                            _gameplayTime += fdt;
+                        }
                     }
+                }
+                finally
+                {
+                    _currentMechanicStage = MechanicStage.Unknown;
                 }
             }
             
@@ -214,7 +236,7 @@ namespace Plugins.Lanski.Subjective
             {
                 Profiler.BeginSample("Presentation Mechanics");
 
-                _isPresentationStage = true;
+                _currentMechanicStage = MechanicStage.Presentation;
                 _deltaTime = dt;
                 _presentationTimeRatio = (float)((_presentationTime - (_gameplayTime - fdt)) / fdt);
 
@@ -239,7 +261,7 @@ namespace Plugins.Lanski.Subjective
                 }
                 finally
                 {
-                    _isPresentationStage = false;
+                    _currentMechanicStage = MechanicStage.Unknown;
                     Profiler.EndSample();
                 }
             }
@@ -249,11 +271,23 @@ namespace Plugins.Lanski.Subjective
             stage == MechanicStage.Gameplay ? _gameplayMechanics : _presentationMechanics
         ;
 
+        static GameplayKeyWatcher GetOrCreateKeyWatcher(KeyCode key)
+        {
+            if (!_keyWatchersMap.TryGetValue(key, out var w))
+            {
+                w = new GameplayKeyWatcher(key);
+                _keyWatchersMap.Add(key, w);
+                _keyWatchers.Add(w);
+            }
+            return w;
+        }
 
         static void Initialize()
         {
             if (_gameplayMechanics != null) return;
         
+            _keyWatchersMap = new Dictionary<KeyCode, GameplayKeyWatcher>();
+            _keyWatchers = new List<GameplayKeyWatcher>();
             _gameplayMechanics = new List<(string, Action)>();
             _presentationMechanics = new List<(string, Action)>();
             foreach (var s in AppDomain.CurrentDomain.InstantiateAllDerivedTypes<ISystem>())
@@ -265,8 +299,10 @@ namespace Plugins.Lanski.Subjective
         static ShuffleList<Subject> _subjects;
         static List<(string name, Action action)> _gameplayMechanics;
         static List<(string name, Action action)> _presentationMechanics;
+        static Dictionary<KeyCode, GameplayKeyWatcher> _keyWatchersMap;
+        static List<GameplayKeyWatcher> _keyWatchers;
 
-        static bool _isPresentationStage;
+        static MechanicStage _currentMechanicStage;
         static float _presentationTimeRatio;
         static float _deltaTime;
         static double _presentationTime;

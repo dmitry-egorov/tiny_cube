@@ -1,0 +1,5 @@
+- certan segments change the jump function
+
+- dash then send a fire ball on third tap
+- double jump
+- infinite dash

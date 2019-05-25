@@ -1,17 +1,18 @@
-- jumping
-- collisions
-- jumping onto a path
-- falling into a pit
+- jumping onto a path (raycast)
+- falling from a path (end marking)
+- turning around by swiping
+
 
 - desert level
 
 - running animation
 - jumping animation
 
-- turning around by swiping
+
 - switching paths by swiping
 - curved path
 
++ jumping
 + stencil hiding character to show background
 + moving on a spline
 + camera follow

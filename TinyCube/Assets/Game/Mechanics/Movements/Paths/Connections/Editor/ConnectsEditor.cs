@@ -4,14 +4,14 @@ using UnityEngine;
 public static class ConnectsEditor
 {
     [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected | GizmoType.Pickable)]
-    static void DrawGizmoForConnects(Connects scr, GizmoType gizmoType)
+    static void DrawGizmoForConnects(Marks_a_path scr, GizmoType gizmoType)
     {
-        var s = scr.Start;
-        var e = scr.End;
+        var s = scr.start;
+        var e = scr.end;
         if (s == null || e == null) return;
         
-        var sp = s.transform.position;
-        var ep = e.transform.position;
+        var sp = s.position;
+        var ep = e.position;
 
         Gizmos.DrawLine(sp, ep);
 

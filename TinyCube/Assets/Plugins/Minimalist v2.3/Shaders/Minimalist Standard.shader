@@ -286,8 +286,8 @@ shader "Minimalist/Standard" {
                  			//Direction vector constants
                  				static const half3 FrontDir = half3(0, 0, 1);
                  				static const half3 BackDir = half3(0, 0, -1);
-                 				static const half3 LeftDir = half3(1, 0, 0);
-                 				static const half3 RightDir = half3(-1, 0, 0);
+                 				static const half3 LeftDir = half3(-1, 0, 0);
+                 				static const half3 RightDir = half3(1, 0, 0);
                  				static const half3 TopDir = half3(0, 1, 0);
                  				static const half3 BottomDir = half3(0, -1, 0);
                  				static const half3 whiteColor = half3(1, 1, 1);

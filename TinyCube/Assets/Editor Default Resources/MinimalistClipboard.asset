@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9465a9e111ce4343b07af66b3057526, type: 3}
   m_Name: MinimalistClipboard
   m_EditorClassIdentifier: 
-  falloff: 0
+  falloff: 1
   pivot: {x: 0, y: 0}
   rotation: 0

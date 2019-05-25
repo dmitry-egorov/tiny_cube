@@ -1,3 +1,6 @@
+- path make camera rotate (optionally)
+- path make camera change level (optionally)
+
 - animated bloom
 - animated background
 
