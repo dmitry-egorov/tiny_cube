@@ -12,9 +12,9 @@
         
         void Apply_airborne_height() =>
             OnGameplay()
-            .Do((Located l, Is_airborne ab) =>
+            .Do((Has_location l, Is_airborne ab) =>
             {
-                var ah /* airborne height */ = ab.GetHeight(DeltaTime);
+                var /* airborne height */ ah = ab.GetHeight(DeltaTime);
                 l.SetHeight(ah);
             })
         ;
@@ -23,10 +23,12 @@
             OnGameplay()
             .ExceptWhen<Jumps>()
             .When<Is_airborne>()
-            .Do((Follows_a_path f, Located l) =>
+            .Do((Follows_a_path f, Has_location l) =>
             {
-                //NOTE: assumes airborne height is already applied
-                if (f.GetHeight() >= l.GetHeight())
+                var /* path's height */    ph = f.GetHeight();
+                var /* subject's height */ sh = l.GetHeight();
+
+                if (ph >= sh)
                 {
                     Remove<Is_airborne>();
                 }

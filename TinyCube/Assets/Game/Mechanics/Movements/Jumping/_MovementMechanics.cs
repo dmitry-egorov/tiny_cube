@@ -8,7 +8,7 @@ namespace Game.Mechanics.Movements
         void Start_jumping_on_click() =>
             OnGameplay()
             .ExceptWhen<Is_airborne>()
-            .Do((Jumps_on_click jc, Located l) =>
+            .Do((Jumps_on_click jc, Has_location l) =>
             {
                 if (!GetKeyDown(KeyCode.Mouse0))
                     return;
@@ -25,7 +25,7 @@ namespace Game.Mechanics.Movements
 
         void Start_falling_when_finished_jumping() =>
             OnGameplay()
-            .Do((Jumps j, Located l) =>
+            .Do((Jumps j, Has_location l) =>
             {
                 var ab = Require<Is_airborne>();
                 var et = ab.elapsed_time;

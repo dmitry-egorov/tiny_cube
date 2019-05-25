@@ -22,16 +22,16 @@ namespace Game.Mechanics.Movements
                 Start_falling_when_finished_jumping();
             
                 Apply_paths_movement_velocity();
-                Handle_reaching_paths_segments_end();
+                Handle_walking_beyond_the_path();
                 Apply_paths_planar_location();
                 Apply_paths_rotation();
                 
                 Apply_airborne_height();
                 Land_when_height_is_below_path();
                 
-                Apply_path_height_when_not_airborne();
+                Apply_paths_height_when_not_airborne();
 
-                Update_path_colliders();
+                Update_paths_collider();
             }
 
             // Presentation

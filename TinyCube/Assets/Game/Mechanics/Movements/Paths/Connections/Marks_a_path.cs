@@ -34,5 +34,5 @@ public class Marks_a_path: SubjectComponent
         return Quaternion.LookRotation(d * s);
     }
 
-    public float GetDistance() => GetOffset().magnitude;
+    public float GetLength() => GetOffset().magnitude;
 }

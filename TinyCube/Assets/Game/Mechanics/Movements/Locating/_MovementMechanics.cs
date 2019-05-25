@@ -7,17 +7,17 @@ namespace Game.Mechanics.Movements
     {
         void Add_location_on_start() =>
             OnGameplay()
-            .When<Located_on_start>().ExceptWhen<Located>()
+            .When<Located_on_start>().ExceptWhen<Has_location>()
             .Do(() =>
             {
-                var l = Add<Located>();
+                var l = Add<Has_location>();
                 l.Location = Transform.position;
             })
         ;
         
         void Remember_last_location() =>
             OnGameplay()
-            .Do((Located l, Interpolates_location il) =>
+            .Do((Has_location l, Interpolates_location il) =>
             {
                 il.LastLocation = l.Location;
             })
@@ -25,21 +25,20 @@ namespace Game.Mechanics.Movements
 
         void Apply_interpolated_location() =>
             OnPresentation()
-            .Do((Located l, Interpolates_location il) =>
+            .Do((Has_location l, Interpolates_location il) =>
             {
                 var ll = il.LastLocation;
                 var cl = l.Location;
-                var r = PresentationTimeRatio;
+                var tr = PresentationTimeRatio;
                 
-                Transform.position = Vector3.Lerp(ll, cl, r);
+                Transform.position = Vector3.Lerp(ll, cl, tr);
             })
         ;
 
-        #region DEBUG
         void Debug_Remember_all_locations() =>
             OnGameplay()
             .When<Interpolates_location, Debugs_location_interpolation>()
-            .Do((Located l) =>
+            .Do((Has_location l) =>
             {
                 var r = GetOrAdd<Remembers_all_locations>();
                 r.Add(l.Location);
@@ -55,6 +54,5 @@ namespace Game.Mechanics.Movements
                 r.Add(Transform.position);
             })
         ;
-        #endregion
     }
 }

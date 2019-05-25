@@ -6,7 +6,7 @@ namespace Game.Mechanics.Movements
     {
         void Remember_last_rotation() =>
             OnGameplay()
-            .Do((Rotated r, Interpolates_rotation ir) =>
+            .Do((Has_rotation r, Interpolates_rotation ir) =>
             {
                 ir.LastRotation = r.Rotation;
             })
@@ -14,7 +14,7 @@ namespace Game.Mechanics.Movements
 
         void Apply_interpolated_rotation() =>
             OnPresentation()
-            .Do((Rotated rd, Interpolates_rotation ir) =>
+            .Do((Has_rotation rd, Interpolates_rotation ir) =>
             {
                 var lr = ir.LastRotation;
                 var cr = rd.Rotation;
