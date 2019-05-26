@@ -54,33 +54,33 @@ namespace Game.Mechanics.Movements
             })
         ;
         
-        void Stop_when_reaching_an_end_of_an_unconnected_path() =>
-            Do((Can_follow_a_path cf, Follows_a_path fp, Moves m, Has_location l) =>
-            {
-                var /* half width */ hw = cf.width / 2.0f;
-                if (fp.direction == Direction.Forward && fp.distance + hw >= fp.GetLength())
-                {
-                    if (!fp.TryGetConnectedPointAt(PathSide.End, out var cp) || cp.GetHeight() > l.GetHeight())
-                    {
-                        m.Stop();
-                        fp.distance = fp.GetLength() - hw;
-                    }
-                }
-                
-                if (fp.direction == Direction.Backward)
-                {
-                    if
-                    (
-                        fp.distance - hw <= 0 &&
-                        !fp.TryGetConnectedAt(PathSide.Start, out _, out _)
-                    )
-                    {
-                        m.Stop();
-                        fp.distance = hw;
-                    }
-                }
-            })
-        ;
+//        void Stop_when_reaching_an_end_of_an_unconnected_path() =>
+//            Do((Can_follow_a_path cf, Follows_a_path fp, Moves m, Has_location l) =>
+//            {
+//                var /* half width */ hw = cf.width / 2.0f;
+//                if (fp.direction == Direction.Forward && fp.distance + hw >= fp.GetLength())
+//                {
+//                    if (!fp.TryGetConnectedPointAt(PathSide.End, out var cp) || cp.GetHeight() > l.GetHeight())
+//                    {
+//                        m.Stop();
+//                        fp.distance = fp.GetLength() - hw;
+//                    }
+//                }
+//                
+//                if (fp.direction == Direction.Backward)
+//                {
+//                    if
+//                    (
+//                        fp.distance - hw <= 0 &&
+//                        !fp.TryGetConnectedAt(PathSide.Start, out _, out _)
+//                    )
+//                    {
+//                        m.Stop();
+//                        fp.distance = hw;
+//                    }
+//                }
+//            })
+//        ;
 
 //        void Handle_walking_beyond_the_path() =>
 //            Do((Follows_a_path fp, Moves m) =>

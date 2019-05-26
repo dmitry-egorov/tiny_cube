@@ -9,9 +9,9 @@ using static Direction;
 [RequireComponent(typeof(Can_follow_a_path))]
 public class Follows_a_path: SubjectComponent
 {
-    [FormerlySerializedAs("Path")] public Marks_a_path path;
-    [FormerlySerializedAs("DistanceWalked")] public float distance;
-    [FormerlySerializedAs("Direction")] public Direction direction;
+    public Marks_a_waypoint_level path;
+    public float distance;
+    public Direction direction;
 
     public void Reverse()
     {
@@ -23,13 +23,13 @@ public class Follows_a_path: SubjectComponent
     public float GetLength() => path.GetLength();
     public Quaternion GetRotation() => path.GetRotationFor(direction);
 
-    public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide new_path_side) => 
-        path.TryGetConnectedAt(side, out new_path, out new_path_side)
-    ;
+//    public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide new_path_side) => 
+//        path.TryGetConnectedAt(side, out new_path, out new_path_side)
+//    ;
 
-    public bool TryGetConnectedPointAt(PathSide side, out Marks_a_point point) => 
-        path.TryGetConnectedPointAt(side, out point)
-    ;
+//    public bool TryGetConnectedPointAt(PathSide side, out Marks_a_point point) => 
+//        path.TryGetConnectedPointAt(side, out point)
+//    ;
 
     public bool TryGetWalkedBeyond(out PathSide side, out float extra_distance)
     {

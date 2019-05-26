@@ -22,7 +22,7 @@ namespace Game.Mechanics.Movements
                 Start_falling_when_finished_jumping();
             
                 Apply_paths_movement_velocity();
-                Stop_when_reaching_an_end_of_an_unconnected_path();
+                //Stop_when_reaching_an_end_of_an_unconnected_path();
                 //Handle_walking_beyond_the_path();
                 Apply_paths_planar_location();
                 Apply_paths_rotation();

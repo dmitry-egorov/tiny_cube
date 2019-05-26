@@ -5,6 +5,14 @@
 
 + refactor to exclusive points
 
+-------THOUGHTS-------
+- jump: always starts forward movement and airborne
+- stop when walking into a wall (forward point out of bounds and check heights)
+- start airborne when falling (backward point out of path)
+- switch to the highest level by back and forward point when airborne
+- adjust location whe back or forward is out (can introduce separate smothing radius)
+
+
 
         _______
 
@@ -20,11 +28,13 @@ if (lower)
 	switch and go
 }
 
+switch to the highest level below the subject
+
 watch the path only in the direction of movement
 
 switch and stop are separate mechanics
 
-switch to the highest level below the subject
+
 
 stop watches a point further
 switch watches a point below???
@@ -37,7 +47,7 @@ there's a problem when landing on a side
 
 
 
--------THOUGHTS-------
+
 segment contains points
 points are exclusive to a segment
 points contain information about connected segments
