@@ -2,11 +2,10 @@ using UnityEngine;
 
 namespace Game.Mechanics.Cameras
 {
-    public partial class _CameraMechanics
+    public partial class _Camera
     {
         void Follow_target() =>
-            OnPresentation()
-            .Do((Follows_a_target ft) =>
+            Do((Follows_a_target ft) =>
             {
                 var p = Transform.position;
                 var tp = ft.Target.position;

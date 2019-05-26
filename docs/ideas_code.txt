@@ -3,7 +3,7 @@
   - continues and falls
   - continues only when airborne
   
-
+- path's max height
 
 - singleton components
 - transient components

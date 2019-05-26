@@ -1,8 +1,40 @@
 ---------TODO---------
+- stop at follower's width
 - introduce point types
 - implement switching...
 
 + refactor to exclusive points
+
+
+        _______
+
+        _______
+_______-
+
+if (higher)
+{
+	stop
+}
+if (lower)
+{
+	switch and go
+}
+
+watch the path only in the direction of movement
+
+switch and stop are separate mechanics
+
+switch to the highest level below the subject
+
+stop watches a point further
+switch watches a point below???
+
+stop when walking to a path without connection
+stop when walking to a path with connection which is higher (not airborne)
+
+there's a problem when landing on a side
+
+
 
 
 -------THOUGHTS-------

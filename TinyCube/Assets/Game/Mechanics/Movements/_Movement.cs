@@ -4,11 +4,11 @@ using Plugins.Lanski.Subjective;
 namespace Game.Mechanics.Movements
 {
     [UsedImplicitly]
-    public partial class _MovementMechanics: SSystem
+    public partial class _Movement: SSystem
     {
         public override void Register()
         {
-            // Gameplay
+            Gameplay();
             {
                 Add_location_on_start();
             
@@ -22,7 +22,8 @@ namespace Game.Mechanics.Movements
                 Start_falling_when_finished_jumping();
             
                 Apply_paths_movement_velocity();
-                Handle_walking_beyond_the_path();
+                Stop_when_reaching_an_end_of_an_unconnected_path();
+                //Handle_walking_beyond_the_path();
                 Apply_paths_planar_location();
                 Apply_paths_rotation();
                 
@@ -30,11 +31,9 @@ namespace Game.Mechanics.Movements
                 Land_when_height_is_below_path();
                 
                 Apply_paths_height_when_not_airborne();
-
-                //Update_paths_collider();
             }
 
-            // Presentation
+            Presentation();
             {
                 Apply_interpolated_location();
                 Apply_interpolated_rotation();

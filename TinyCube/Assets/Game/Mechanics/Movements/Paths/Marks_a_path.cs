@@ -3,7 +3,7 @@ using Plugins.Lanski.Subjective;
 using Plugins.UnityExtensions;
 using UnityEngine;
 
-public class Marks_a_path: SubjectComponent
+public class Marks_a_path: MarkingComponent
 {
     public Marks_a_point start;
     public Marks_a_point end;
@@ -35,19 +35,30 @@ public class Marks_a_path: SubjectComponent
 
     public float GetLength() => GetOffset().magnitude;
 
-    public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide new_path_side)
+    public bool TryGetConnectedPointAt(PathSide side, out Marks_a_point point)
     {
         var p = GetPointAt(side);
         if (!p.TryGetComponent<Connects_to>(out var c))
+        {
+            point = default;
+            return false;
+        }
+
+        point = c.point;
+        return true;
+    }
+
+    public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide new_path_side)
+    {
+        if (!TryGetConnectedPointAt(side, out var /* connected point */ cp))
         {
             new_path = default;
             new_path_side = default;
             return false;
         }
 
-        var np = c.paths_point;
-        new_path = np.path;
-        new_path_side = new_path.GetSideOf(np);
+        new_path = cp.path;
+        new_path_side = new_path.GetSideOf(cp);
         return true;
     }
 

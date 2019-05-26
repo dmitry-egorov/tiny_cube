@@ -5,12 +5,12 @@ using UnityEngine;
 namespace DefaultNamespace
 {
     [UsedImplicitly]
-    public class _DebugMechanics: SSystem
+    public class _Debug: SSystem
     {
         public override void Register()
         {
-            OnPresentation()
-            .Do(() =>
+            Presentation();
+            Do(() =>
             {
                 if (!GetKeyDown(KeyCode.P)) return;
 

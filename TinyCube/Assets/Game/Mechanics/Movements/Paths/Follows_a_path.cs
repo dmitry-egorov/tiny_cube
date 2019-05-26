@@ -3,36 +3,41 @@ using Plugins.Lanski.FunctionalExtensions;
 using Plugins.Lanski.Subjective;
 using Plugins.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Direction;
 
+[RequireComponent(typeof(Can_follow_a_path))]
 public class Follows_a_path: SubjectComponent
 {
-    public Marks_a_path Path;
-    public bool Rotates = true;
-    public float DistanceWalked;
-    public Direction Direction;
+    [FormerlySerializedAs("Path")] public Marks_a_path path;
+    [FormerlySerializedAs("DistanceWalked")] public float distance;
+    [FormerlySerializedAs("Direction")] public Direction direction;
 
     public void Reverse()
     {
-        Direction = Direction == Forward ? Backward : Forward;
+        direction = direction == Forward ? Backward : Forward;
     }
 
-    public Vector3 GetPosition() => Path.GetPositionAt(DistanceWalked);
-    public float GetHeight() => Path.GetHeightAt(DistanceWalked);
-    public float GetLength() => Path.GetLength();
-    public Quaternion GetRotation() => Path.GetRotationFor(Direction);
+    public Vector3 GetPosition() => path.GetPositionAt(distance);
+    public float GetHeight() => path.GetHeightAt(distance);
+    public float GetLength() => path.GetLength();
+    public Quaternion GetRotation() => path.GetRotationFor(direction);
 
     public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide new_path_side) => 
-        Path.TryGetConnectedAt(side, out new_path, out new_path_side)
+        path.TryGetConnectedAt(side, out new_path, out new_path_side)
+    ;
+
+    public bool TryGetConnectedPointAt(PathSide side, out Marks_a_point point) => 
+        path.TryGetConnectedPointAt(side, out point)
     ;
 
     public bool TryGetWalkedBeyond(out PathSide side, out float extra_distance)
     {
         var /* path's length */ pl = GetLength();
                     
-        var wd = DistanceWalked;
-        var /* walked past end */   wpe = wd > pl;
-        var /* walked past start */ wpb = wd < 0;
+        var d = distance;
+        var /* walked past end */   wpe = d > pl;
+        var /* walked past start */ wpb = d < 0;
 
         if (!wpe && !wpb)
         {
@@ -41,29 +46,29 @@ public class Follows_a_path: SubjectComponent
             return false;
         }
                     
-        extra_distance = wpe ? wd - pl : -wd;
+        extra_distance = wpe ? d - pl : -d;
         side = wpe ? PathSide.End : PathSide.Start;
         return true;
     }
 
     public void SetReverseDistance(float ed)
     {
-        DistanceWalked = Path.GetLength() - ed;
+        distance = path.GetLength() - ed;
     }
 
     public void SetDistance(float ed)
     {
-        DistanceWalked = ed;
+        distance = ed;
     }
 
     public void ResetToStart()
     {
-        DistanceWalked = 0;
+        distance = 0;
     }
 
     public void ResetToEnd()
     {
-        DistanceWalked = GetLength();
+        distance = GetLength();
     }
 
     public void SetDistanceFrom(PathSide side, float ed)

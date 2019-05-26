@@ -1,13 +1,11 @@
-﻿using Plugins.Lanski.Subjective;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Mechanics.Movements
 {
-    public partial class _MovementMechanics
+    public partial class _Movement
     {
         void Start_jumping_on_click() =>
-            OnGameplay()
-            .ExceptWhen<Is_airborne>()
+            ExceptWhen<Is_airborne>()
             .Do((Jumps_on_click jc, Has_location l) =>
             {
                 if (!GetKeyDown(KeyCode.Mouse0))
@@ -24,8 +22,7 @@ namespace Game.Mechanics.Movements
         ;
 
         void Start_falling_when_finished_jumping() =>
-            OnGameplay()
-            .Do((Jumps j, Has_location l) =>
+            Do((Jumps j, Has_location l) =>
             {
                 var ab = Require<Is_airborne>();
                 var et = ab.elapsed_time;
