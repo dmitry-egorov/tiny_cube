@@ -1,0 +1,30 @@
+---------TODO---------
+- introduce point types
+- implement switching...
+
++ refactor to exclusive points
+
+
+-------THOUGHTS-------
+segment contains points
+points are exclusive to a segment
+points contain information about connected segments
+point can be restrictive or free
+
+transition can be made only when a path is below or at the height of the subject
+
+
+free, restricted
+
+free: fall when point at the side opposite to the movement is out of the path
+restrictive: stop and set to point when outside the point
+
+restricted to free: switch only when at or above the path with the central point
+
+free to restricted: falling down, switch when falling
+
+free to free
+
+
+
+

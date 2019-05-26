@@ -1,5 +1,4 @@
-﻿using Plugins.UnityExtensions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Mechanics.Movements
 {
@@ -102,25 +101,25 @@ namespace Game.Mechanics.Movements
             })
         ;
 
-        void Update_paths_collider() =>
-            OnGameplay()
-            .Do((Marks_a_path p) =>
-            {
-                var /* collider */         c = Subject.GetOrAddComponent<BoxCollider>();
-                var /* start position */  sp = p.start.position;
-                var /* end position */    ep = p.end.position;
-                var /* middle position */ mp = (sp + ep) * 0.5f;
-                var /* rotation */         r = p.GetRotation(Direction.Forward);
-                var w = p.width;
-                var h = p.height;
-                var d = p.GetLength();
-
-                Transform.position = mp;
-                Transform.rotation = r;
-                c.center = Vector3.zero;
-
-                c.size = new Vector3(w, h, d);
-            })
-        ;
+//        void Update_paths_collider() =>
+//            OnGameplay()
+//            .Do((Marks_a_path p) =>
+//            {
+//                var /* collider */         c = Subject.GetOrAddComponent<BoxCollider>();
+//                var /* start position */  sp = p.start.position;
+//                var /* end position */    ep = p.end.position;
+//                var /* middle position */ mp = (sp + ep) * 0.5f;
+//                var /* rotation */         r = p.GetRotation(Direction.Forward);
+//                var w = p.width;
+//                var h = p.height;
+//                var d = p.GetLength();
+//
+//                Transform.position = mp;
+//                Transform.rotation = r;
+//                c.center = Vector3.zero;
+//
+//                c.size = new Vector3(w, h, d);
+//            })
+//        ;
     }
 }

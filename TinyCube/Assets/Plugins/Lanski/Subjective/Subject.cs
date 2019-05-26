@@ -1,5 +1,7 @@
 using System;
+using Plugins.Lanski.ExtraCollections;
 using Plugins.UnityExtensions;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -57,9 +59,9 @@ namespace Plugins.Lanski.Subjective
             c.enabled = false;
         }
 
-        public void OnEnable() => _index = SManager.Register(this);
-        public void OnDisable() => SManager.Unregister(_index);
+        public void OnEnable() => _token = SManager.Register(this);
+        public void OnDisable() => SManager.Unregister(_token);
 
-        [NonSerialized] int _index;
+        ShuffleList<Subject>.Token _token;
     }
 }

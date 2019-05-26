@@ -1,3 +1,10 @@
+- at the end of a path:
+  - stops
+  - continues and falls
+  - continues only when airborne
+  
+
+
 - singleton components
 - transient components
 
@@ -7,4 +14,6 @@
 
 - custom subject editor depending on the components?
 - prepackaged objects/classes
+
+- components can be used as nullables and as ADTs
 

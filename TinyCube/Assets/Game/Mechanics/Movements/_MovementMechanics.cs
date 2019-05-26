@@ -31,7 +31,7 @@ namespace Game.Mechanics.Movements
                 
                 Apply_paths_height_when_not_airborne();
 
-                Update_paths_collider();
+                //Update_paths_collider();
             }
 
             // Presentation

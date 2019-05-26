@@ -20,7 +20,11 @@ public class Follows_a_path: SubjectComponent
     public Vector3 GetPosition() => Path.GetPositionAt(DistanceWalked);
     public float GetHeight() => Path.GetHeightAt(DistanceWalked);
     public float GetLength() => Path.GetLength();
-    public Quaternion GetRotation() => Path.GetRotation(Direction);
+    public Quaternion GetRotation() => Path.GetRotationFor(Direction);
+
+    public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide new_path_side) => 
+        Path.TryGetConnectedAt(side, out new_path, out new_path_side)
+    ;
 
     public bool TryGetWalkedBeyond(out PathSide side, out float extra_distance)
     {
@@ -39,49 +43,6 @@ public class Follows_a_path: SubjectComponent
                     
         extra_distance = wpe ? wd - pl : -wd;
         side = wpe ? PathSide.End : PathSide.Start;
-        return true;
-    }
-
-    public bool TryGetConnectedAt(PathSide side, out Marks_a_path new_path, out PathSide path_side)
-    {
-        return side == PathSide.End
-            ? TryGetNext(out new_path, out path_side)
-            : TryGetPrev(out new_path, out path_side)
-        ;
-    }
-    public bool TryGetNext(out Marks_a_path new_path, out PathSide path_side)
-    {
-        if 
-        (
-            !Path.TryGetComponent(out Has_next_path nf) ||
-            !nf.Next.TryGet(out var np)
-        )
-        {
-            new_path = default;
-            path_side = default;
-            return false;
-        }
-        
-        new_path = np;
-        path_side = nf.Side;
-        return true;
-    }
-
-    public bool TryGetPrev(out Marks_a_path new_path, out PathSide path_side)
-    {
-        if 
-        (
-            !Path.TryGetComponent(out Has_prev_path nf) ||
-            !nf.Prev.TryGet(out var np)
-        )
-        {
-            new_path = default;
-            path_side = default;
-            return false;
-        }
-        
-        new_path = np;
-        path_side = nf.Side;
         return true;
     }
 

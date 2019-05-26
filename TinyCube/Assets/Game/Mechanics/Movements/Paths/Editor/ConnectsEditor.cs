@@ -10,8 +10,8 @@ public static class ConnectsEditor
         var e = scr.end;
         if (s == null || e == null) return;
         
-        var sp = s.position;
-        var ep = e.position;
+        var sp = s.GetPosition();
+        var ep = e.GetPosition();
 
         Gizmos.DrawLine(sp, ep);
 
@@ -21,7 +21,7 @@ public static class ConnectsEditor
     }
     
     [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected | GizmoType.Pickable)]
-    static void DrawGizmoForCanBeConnected(Can_be_connected scr, GizmoType gizmoType)
+    static void DrawGizmoForCanBeConnected(Marks_a_point scr, GizmoType gizmoType)
     {
         var p = scr.transform.position;
         Gizmos.color = new Color(0, 0, 1, 0.5f);

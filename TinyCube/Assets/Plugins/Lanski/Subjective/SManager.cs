@@ -33,16 +33,16 @@ namespace Plugins.Lanski.Subjective
             return GetOrCreateKeyWatcher(key).GetKeyDown();
         }
 
-        public static int Register(Subject subject)
+        public static ShuffleList<Subject>.Token Register(Subject subject)
         {
             if (_subjects == null) _subjects = new ShuffleList<Subject>();
             return _subjects.Add(subject);
         }
     
-        public static void Unregister(int index)
+        public static void Unregister(ShuffleList<Subject>.Token token)
         {
             Assert.IsNotNull(_subjects);
-            _subjects.RemoveAt(index);
+            _subjects.Remove(token);
         }
         
         public static void Register

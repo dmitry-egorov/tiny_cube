@@ -2,7 +2,6 @@
 - falling from a path (end marking)
 - turning around by swiping
 
-
 - desert level
 
 - running animation
@@ -12,6 +11,7 @@
 - switching paths by swiping
 - curved path
 
++ fix subject removal (index changes)
 + jumping
 + stencil hiding character to show background
 + moving on a spline
