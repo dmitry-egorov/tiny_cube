@@ -8,30 +8,29 @@ public class Marks_a_waypoint_level : MarkingComponent
     public Marks_a_waypoint_level next;
     
     public Marks_a_waypoint Waypoint => _waypoint ? _waypoint : _waypoint = GetComponentInParent<Marks_a_waypoint>();
-    
+    public Marks_a_waypoint_level[] levels => Waypoint.Levels;
+
     [NonSerialized] Marks_a_waypoint _waypoint;
 
-    public Vector3 GetPositionAt(float distance)
+    public Vector3 position_at(float distance)
     {
-        var d = GetDirection();
-        var sp = GetPosition();
+        var d = direction;
+        var sp = position;
         return sp + d * distance;
     }
 
-    public Vector3 GetPosition() => Waypoint.GetPosition() + Vector3.up * transform.localPosition.y;
-    public float GetHeight() => GetPosition().y;
-    public float GetHeightAt(float distance) => GetPositionAt(distance).y;
-    public Vector3 GetDirection() => GetOffset().normalized;
+    public Vector3 position => Waypoint.GetPosition() + Vector3.up * transform.localPosition.y;
+    public float height => position.y;
+    public float height_at(float distance) => position_at(distance).y;
+    public Vector3 direction => offset.normalized;
+    public Vector3 offset => next.position - position;
 
-    public Vector3 GetOffset() => next.GetPosition() - GetPosition();
-
-    public Quaternion GetRotationFor(Direction od)
+    public Quaternion rotation_for(Direction od)
     {
-        var d = GetDirection();
-        var s = od == Direction.Forward ? 1f : -1f;
+        var d = direction;
+        var s = od == Direction.Front ? 1f : -1f;
         return Quaternion.LookRotation(d * s);
     }
 
-    public float GetLength() => GetOffset().magnitude;
-
+    public float length => offset.magnitude;
 }

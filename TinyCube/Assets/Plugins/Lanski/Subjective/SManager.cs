@@ -328,7 +328,21 @@ namespace Plugins.Lanski.Subjective
             _keyWatchers = new List<GameplayKeyWatcher>();
             _gameplayMechanics = new List<(string, Action)>();
             _presentationMechanics = new List<(string, Action)>();
+
+            var late_systems = new List<ISystem>();
             foreach (var s in AppDomain.CurrentDomain.InstantiateAllDerivedTypes<ISystem>())
+            {
+                if (s.GetType().IsDefined(typeof(LateAttribute), false))
+                {
+                    late_systems.Add(s);
+                    continue;
+                }
+                
+                SetToPresentationRegistration();
+                s.Register();
+            }
+
+            foreach (var s in late_systems)
             {
                 SetToPresentationRegistration();
                 s.Register();

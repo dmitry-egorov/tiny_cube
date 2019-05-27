@@ -1,6 +1,6 @@
-- jumping onto a path (raycast)
-- falling from a path (end marking)
 - turning around by swiping
+- smooth path turns
+- ceilings and walls
 
 - desert level
 
@@ -11,6 +11,8 @@
 - switching paths by swiping
 - curved path
 
++ falling from a path (end marking)
++ jumping onto a path (raycast)
 + fix subject removal (index changes)
 + jumping
 + stencil hiding character to show background

@@ -12,7 +12,7 @@ namespace DefaultNamespace
             Presentation();
             Do(() =>
             {
-                if (!GetKeyDown(KeyCode.P)) return;
+                if (!get_input_key_down(KeyCode.P)) return;
 
                 Debug.Break();
             })

@@ -1,14 +1,8 @@
 using Plugins.Lanski.Subjective;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Has_location: SubjectComponent
 {
-    public Vector3 Location;
-
-    public float GetHeight() => Location.y;
-
-    public void SetHeight(float nh)
-    {
-        Location.y = nh;
-    }
+    public Vector3 location;
 }

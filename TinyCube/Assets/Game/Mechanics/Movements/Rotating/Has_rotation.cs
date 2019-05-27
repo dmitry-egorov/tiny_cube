@@ -1,7 +1,8 @@
 using Plugins.Lanski.Subjective;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Has_rotation: SubjectComponent
 {
-    public Quaternion Rotation;
+    [FormerlySerializedAs("Rotation")] public Quaternion rotation;
 }

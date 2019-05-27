@@ -53,20 +53,20 @@ namespace Plugins.Lanski.Subjective
             where T4: SubjectComponent 
             => SManager.Register(Reflect.CallingMethodName(), a);
         
-        protected static Subject Subject => SManager.Subject;
-        protected static Transform Transform => Subject.transform;
-        protected static float DeltaTime => SManager.DeltaTime;
-        protected static float PresentationTimeRatio => SManager.PresentationTimeRatio;
+        protected static Subject subject => SManager.Subject;
+        protected static Transform transform => subject.transform;
+        protected static float delta_time => SManager.DeltaTime;
+        protected static float presentation_time_ratio => SManager.PresentationTimeRatio;
 
-        public static bool Has<TC>() where TC : SubjectComponent => Subject.Has<TC>();
-        public static bool Has(Type tc) => Subject.Has(tc);
-        public static bool TryGet<TC>(out TC c) where TC : SubjectComponent => Subject.TryGet(out c);
-        public static TC Add<TC>() where TC : SubjectComponent => Subject.Add<TC>();
-        public static TC GetOrAdd<TC>() where TC : SubjectComponent => Subject.GetOrAdd<TC>();
-        protected TC Require<TC>() where TC : SubjectComponent => Subject.Require<TC>();
-        protected void Remove<TC>() where TC : SubjectComponent => Subject.Remove<TC>();
+        public static bool has<TC>() where TC : SubjectComponent => subject.Has<TC>();
+        public static bool has(Type tc) => subject.Has(tc);
+        public static bool try_get<TC>(out TC c) where TC : SubjectComponent => subject.TryGet(out c);
+        public static TC add<TC>() where TC : SubjectComponent => subject.Add<TC>();
+        public static TC get_or_add<TC>() where TC : SubjectComponent => subject.GetOrAdd<TC>();
+        protected TC require<TC>() where TC : SubjectComponent => subject.Require<TC>();
+        protected void remove<TC>() where TC : SubjectComponent => subject.Remove<TC>();
 
-        protected bool GetKey(KeyCode i) => SManager.GetKey(i);
-        protected bool GetKeyDown(KeyCode i) => SManager.GetKeyDown(i);
+        protected bool get_input_key(KeyCode i) => SManager.GetKey(i);
+        protected bool get_input_key_down(KeyCode i) => SManager.GetKeyDown(i);
     }
 }

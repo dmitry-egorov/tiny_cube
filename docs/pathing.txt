@@ -1,7 +1,10 @@
 ---------TODO---------
-- stop at follower's width
-- introduce point types
-- implement switching...
+- switch
+- stop wall
+- jump adds movement
+- fall
+
+
 
 + refactor to exclusive points
 
@@ -10,7 +13,18 @@
 - stop when walking into a wall (forward point out of bounds and check heights)
 - start airborne when falling (backward point out of path)
 - switch to the highest level by back and forward point when airborne
-- adjust location whe back or forward is out (can introduce separate smothing radius)
+- adjust location when back or forward is out (can introduce separate smothing radius)
+
+
+switch before applying airborne height
+
+jump adds moves
+apply velocity
+stop
+switch
+fall
+airborne height
+adjust height
 
 
 

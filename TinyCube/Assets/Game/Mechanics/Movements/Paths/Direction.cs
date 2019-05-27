@@ -1,5 +1,5 @@
 public enum Direction
 {
-    Forward = 0,
-    Backward = 1
+    Front = 0,
+    Back = 1
 }

@@ -5,30 +5,40 @@
         void Advance_airborne_elapsed_time() =>
             Do((Is_airborne ab) =>
             {
-                ab.elapsed_time += DeltaTime;
+                ab.elapsed_time += delta_time;
             })
         ;
         
         void Apply_airborne_height() =>
-            Do((Has_location l, Is_airborne ab) =>
+            Do((Has_height l, Is_airborne ab) =>
             {
-                var /* airborne height */ ah = ab.GetHeight(DeltaTime);
-                l.SetHeight(ah);
+                l.height = ab.GetHeight(delta_time);
             })
         ;
 
         void Land_when_height_is_below_path() =>
             ExceptWhen<Jumps>()
             .When<Is_airborne>()
-            .Do((Follows_a_path f, Has_location l) =>
+            .Do((Follows_a_path f, Has_height l) =>
             {
-                var /* path's height */    ph = f.GetHeight();
-                var /* subject's height */ sh = l.GetHeight();
-
-                if (ph >= sh)
+                if (l.height <= f.path_height)
                 {
-                    Remove<Is_airborne>();
+                    remove<Is_airborne>();
                 }
             });
+
+        void Become_airborne_when_height_is_above_path() =>
+            ExceptWhen<Is_airborne>()
+            .Do((Can_fall cf, Follows_a_path f, Has_height l) =>
+            {
+                if (l.height > f.path_height)
+                {
+                    var ab = add<Is_airborne>();
+                    ab.elapsed_time = 0;
+                    ab.starting_height = l.height;
+                    ab.height_curve = cf.height_curve;
+                }
+            })
+        ;
     }
 }

@@ -4,6 +4,6 @@ using UnityEngine.Serialization;
 
 public class Can_rotate: SubjectComponent
 {
-    [Range(0, 1)] public float RotationExpStrength = 0.1f;
-    public float MinRotationSpeed = 180f;
+    [FormerlySerializedAs("RotationExpStrength")] [Range(0, 1)] public float exp_rotation_strength = 0.1f;
+    [FormerlySerializedAs("MinRotationSpeed")] public float linear_rotation_speed = 180f;
 }
