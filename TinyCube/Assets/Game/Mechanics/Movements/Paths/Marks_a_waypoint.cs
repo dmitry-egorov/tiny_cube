@@ -8,5 +8,5 @@ public class Marks_a_waypoint: MarkingComponent
     
     [NonSerialized] Marks_a_waypoint_level[] _levels;
 
-    public Vector3 GetPosition() => transform.position;
+    public Vector3 position => transform.position;
 }

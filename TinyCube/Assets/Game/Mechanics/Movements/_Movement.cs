@@ -11,7 +11,8 @@ namespace Game.Mechanics.Movements
             Gameplay();
             {
                 // Start
-                Check_paths_consistency();
+                Check_paths_prev_next_pointers_on_start();
+                Check_paths_levels_order_on_start();
                 Start_moving_on_start();
                 Follow_closest_point_on_start();
                     

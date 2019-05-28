@@ -26,17 +26,20 @@ namespace Game.Mechanics.Movements
         [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected)]
         static void DrawGizmoForWaypoint(Marks_a_waypoint w, GizmoType gizmoType)
         {
-            var p = w.GetPosition();
+            var p = w.position;
 
             var ls = w.Levels;
             if (ls.Length == 0)
                 return;
 
-            var max_height = ls.Max(x => x.height);
+            // assuming they're in order of height
+            var min_height = ls[0].height;
+            var max_height = ls[ls.Length - 1].height;
+            var fp = new Vector3(p.x, min_height, p.z);
             var lp = new Vector3(p.x, max_height, p.z);
         
             Gizmos.color = new Color(0, 1, 0, 0.5f);
-            Gizmos.DrawLine(p, lp);
+            Gizmos.DrawLine(fp, lp);
         }
         
         [DrawGizmo(GizmoType.Selected | GizmoType.NonSelected | GizmoType.Pickable)]
@@ -61,19 +64,25 @@ namespace Game.Mechanics.Movements
             var h = pi.GetComponent<Has_height>().height;
             Gizmos.color = new Color(1, 0, 0, 0.5f);
             
-            var n = pi.front;
-            var nl = n.level;
-            var nd = n.distance;
-            var /* next intersection start */ ns = nl.position_at(nd);
-            var /* next intersection end   */ ne = new Vector3(ns.x, h, ns.z);
-            Gizmos.DrawLine(ns, ne);
-            
-            var p = pi.back;
-            var pl = p.level;
-            var pd = p.distance;
-            var /* prev intersection start */ ps = pl.position_at(pd);
-            var /* prev intersection end   */ pe = new Vector3(ps.x, h, ps.z);
-            Gizmos.DrawLine(ps, pe);
+            var f = pi.front;
+            if (f.has_value)
+            {
+                var fl = f.level;
+                var fd = f.distance;
+                var /* next intersection start */ fs = fl.position_at(fd);
+                var /* next intersection end   */ fe = new Vector3(fs.x, h, fs.z);
+                Gizmos.DrawLine(fs, fe);
+            }
+
+            var b = pi.back;
+            if (b.has_value)
+            {
+                var bl = b.level;
+                var bd = b.distance;
+                var /* prev intersection start */ bs = bl.position_at(bd);
+                var /* prev intersection end   */ be = new Vector3(bs.x, h, bs.z);
+                Gizmos.DrawLine(bs, be);                
+            }
         }
     }
 }

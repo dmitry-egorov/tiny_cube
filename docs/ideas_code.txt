@@ -1,9 +1,5 @@
-- at the end of a path:
-  - stops
-  - continues and falls
-  - continues only when airborne
-  
 - path's max height
+- path's up vector
 
 - singleton components
 - transient components

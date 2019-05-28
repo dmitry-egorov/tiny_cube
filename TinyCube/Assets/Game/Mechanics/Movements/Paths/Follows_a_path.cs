@@ -1,9 +1,7 @@
-using System;
 using Game.Mechanics.Movements;
 using Plugins.Lanski.Subjective;
 using UnityEngine;
 using UnityEngine.Assertions;
-using static Direction;
 
 [RequireComponent(typeof(Can_follow_a_path))]
 public class Follows_a_path: SubjectComponent
@@ -12,7 +10,7 @@ public class Follows_a_path: SubjectComponent
     public float distance;
     public Direction direction;
 
-    public Vector3 position => level.position_at(distance);
+    public Vector3 paths_location => level.position_at(distance);
     public float path_height => level.height_at(distance);
     public float path_length => level.length;
     public Quaternion rotation => level.rotation_for(direction);
@@ -22,34 +20,19 @@ public class Follows_a_path: SubjectComponent
     {
         Assert.IsNotNull(l);
         Assert.IsNotNull(l.next);
+        
         level = l;
         distance = new_distance;
     }
 
-    public void set_reverse_distance(float ed)
-    {
-        distance = level.length - ed;
-    }
+    public void set_distance_from(Direction d, float ed) => distance = distance_from(d, ed);
 
-    public void set_distance(float ed)
-    {
-        distance = ed;
-    }
-
-    public void set_distance_from(Direction d, float ed)
-    {
-        switch (d)
-        {
-            case Front:
-                set_reverse_distance(ed);
-                break;
-            case Back:
-                set_distance(ed);
-                break;
-            default:
-                throw new ArgumentException("Unknown value", nameof(d));
-        }
-    }
+    public float distance_from(Direction d, float ed) => level.distance_from(d, ed);
 
     public float direction_multiplier() => direction.multiplier();
+
+    public (Marks_a_waypoint_level, float) path_at(float d)
+    {
+        return level.path_at(d);
+    }
 }

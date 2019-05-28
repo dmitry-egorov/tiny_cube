@@ -1,23 +1,44 @@
-﻿using Plugins.Lanski.NullableExtensions;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Assertions;
 using static Direction;
 
 namespace Game.Mechanics.Movements
 {
     public partial class _Movement
     {
-        void Check_paths_consistency() =>
+        void Check_paths_prev_next_pointers_on_start() => // prev/next pointers
             ExceptWhen<Is_started>()
             .When<Checks_paths_consistency_on_start>()
             .Do(() =>
             {
-                var ps = Object.FindObjectsOfType<Marks_a_waypoint_level>();
+                var ls = Object.FindObjectsOfType<Marks_a_waypoint_level>();
+                foreach (var l in ls)
+                {
+                    var n = l.next;
+                    if (n != null && n.prev != l) Debug.LogWarning("Inconsistent point", l);
+                    var pr = l.prev;
+                    if (pr != null && pr.next != l) Debug.LogWarning("Inconsistent point", l);
+                }
+            })
+        ;
+        void Check_paths_levels_order_on_start() => // prev/next pointers
+            ExceptWhen<Is_started>()
+            .When<Checks_paths_consistency_on_start>()
+            .Do(() =>
+            {
+                var ps = Object.FindObjectsOfType<Marks_a_waypoint>();
                 foreach (var p in ps)
                 {
-                    var n = p.next;
-                    if (n != null && n.prev != p) Debug.LogWarning("Inconsistent point", p);
-                    var pr = p.prev;
-                    if (pr != null && pr.next != p) Debug.LogWarning("Inconsistent point", p);
+                    var h = float.MinValue;
+                    foreach (var l in p.Levels)
+                    {
+                        var lh = l.height;
+                        if (lh <= h)
+                        {
+                            Debug.LogWarning("Level is out of order", l);
+                        }
+                        h = lh;
+                    }
                 }
             })
         ;
@@ -61,7 +82,7 @@ namespace Game.Mechanics.Movements
             Do((Follows_a_path f, Has_height hh) =>
             {
                 var l = get_or_add<Has_location>();
-                l.location = (f, hh).position();
+                l.location = (f, hh).location();
             })
         ;
 
@@ -111,11 +132,7 @@ namespace Game.Mechanics.Movements
                 var d = fp.direction;
                 var s = (cf, fp, hh);
                 
-                if
-                (
-                    d == Front && s.front_intersection().is_empty() ||
-                    d == Back  && s. back_intersection().is_empty()
-                )
+                if (s.intersection_at(d).is_empty)
                 {
                     (cf, fp).reset_to(d);
                     m.Stop();
@@ -129,12 +146,8 @@ namespace Game.Mechanics.Movements
                 var ap = get_or_add<Has_paths_intersections>();
 
                 var mr = cf.fall_detection_margin;
-                var fd = (cf, fp).front_distance() - mr;
-                var bd = (cf, fp).back_distance() + mr;
-                
-                //Note: assumes the wall stopping is already performed, and so the intersection exists 
-                ap.front = (fp, hh).intersection_at(fd).Value;
-                ap.back  = (fp, hh).intersection_at(bd).Value;
+                ap.front = (cf, fp, hh).intersection_at(Front, mr);
+                ap.back  = (cf, fp, hh).intersection_at(Back, mr);
             })
         ;
 
@@ -143,13 +156,20 @@ namespace Game.Mechanics.Movements
             {
                 var /* front intersection */ fi = pi.front;
                 var /*  back intersection */ bi = pi.back;
-                var /* first is higher    */ fh = fi.height >= bi.height;
+
+                var /* front is empty */ fhv = fi.has_value;
+                var /*  back is empty */ bhv = bi.has_value;
+                
+                if (!fhv && !bhv)
+                    return;
+                
+                var /* first is higher */ fih = !bhv || fhv && fi.height >= bi.height;
 
                 var mr = cf.fall_detection_margin;
                 var hw = cf.half_width() - mr;
 
-                var l = fh ? fi.level : bi.level;
-                var d = fh ? fi.distance - hw : bi.distance + hw;
+                var l = fih ? fi.level : bi.level;
+                var d = fih ? fi.distance - hw : bi.distance + hw;
                 fp.switch_to(l, d);
             })
         ;
@@ -157,43 +177,34 @@ namespace Game.Mechanics.Movements
     
     public static partial class _Helpers
     {
-        public static float front_distance(this (Can_follow_a_path cf, Follows_a_path fp) x) => 
-            x.fp.distance + x.cf.half_width()
-        ;
-
-        public static float back_distance(this (Can_follow_a_path cf, Follows_a_path fp) x) => 
-            x.fp.distance - x.cf.half_width()
-        ;
-
-        public static void reset_to(this (Can_follow_a_path cf, Follows_a_path fp) x, Direction d)
+        public static void reset_to(this (Can_follow_a_path cf, Follows_a_path fp) t, Direction d)
         {
-            var hw = x.cf.half_width();
-            x.fp.set_distance_from(d, hw);
+            var hw = t.cf.half_width();
+            t.fp.set_distance_from(d, hw);
         }
 
 
-        public static PathIntersection? front_intersection
+        public static PathIntersection intersection_at
         (
-            this (Can_follow_a_path cf, Follows_a_path fp, Has_height hh) x 
+            this (Can_follow_a_path cf, Follows_a_path fp, Has_height hh) t, 
+            Direction side, 
+            float /* margin */ m = 0f
         )
         {
-            var fd = (x.cf, x.fp).front_distance();
-            return intersection_at((x.fp, x.hh), fd);
+            var mp = side.multiplier();
+            var d = t.fp.distance + mp * (t.cf.half_width() - m); 
+            
+            return (t.fp, t.hh).intersection_at(d);
         }
         
-        public static PathIntersection? back_intersection
+        public static PathIntersection intersection_at
         (
-            this (Can_follow_a_path cf, Follows_a_path fp, Has_height hh) x 
+            this (Follows_a_path fp, Has_height hh) t, 
+            float /* distance */ d
         )
         {
-            var bd = (x.cf, x.fp).back_distance();
-            return intersection_at((x.fp, x.hh), bd);
-        }
-            
-        public static PathIntersection? intersection_at(this (Follows_a_path fp, Has_height hh) x, float /* distance */ d)
-        {
-            var /* current levels */  ls = x.fp.levels;
-            var /* path's length  */ pln = x.fp.path_length;
+            var /* current levels */  ls = t.fp.levels;
+            var /* path's length  */ pln = t.fp.path_length;
             
             using (ListPool<(Marks_a_waypoint_level l, float d)>.Borrow(out var nls))
             {
@@ -218,7 +229,7 @@ namespace Game.Mechanics.Movements
                 }
                 else // over front bound
                 {
-                    foreach (var l in x.fp.level.next.levels)
+                    foreach (var l in t.fp.level.next.levels)
                     {
                         if (l.next == null) continue;
                         
@@ -227,8 +238,9 @@ namespace Game.Mechanics.Movements
                     }
                 }
 
+                // find and return highest path lower than the subject
                 {
-                    var /* subject's height */ sh = x.hh.height;
+                    var /* subject's height */ sh = t.origin_height_at(d);
                     var /* max height */       mh = float.MinValue;
                     var /* highest level */    hl = default(Marks_a_waypoint_level);
                     var /* level's distance */ ld = 0.0f;
@@ -246,17 +258,24 @@ namespace Game.Mechanics.Movements
                     }
 
                     return hl != null
-                            ? new PathIntersection {distance = ld, level = hl, height = mh}
-                            : (PathIntersection?) null
-                        ;
+                        ? new PathIntersection(hl, ld, mh)
+                        : default
+                    ;
                 }
             }
         }
-        
-        public static Vector3 position(this (Follows_a_path f, Has_height hh) x)
+
+        public static float origin_height_at(this (Follows_a_path fp, Has_height hh) t, float /* distance */ d)
         {
-            var p = x.f.position;
-            return new Vector3(p.x, x.hh.height, p.z);
+            var (l, nd) = t.fp.path_at(d);
+            return Mathf.Max(l.height_at(nd), t.hh.height);
+        }
+
+        public static Vector3 location(this (Follows_a_path f, Has_height hh) t)
+        {
+            var p = t.f.paths_location;
+            var h = t.hh.height;
+            return new Vector3(p.x, h, p.z);
         }
         
         public static float multiplier(this Direction d) => d == Front ? 1f : -1f;

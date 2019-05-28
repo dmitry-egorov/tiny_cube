@@ -2,6 +2,8 @@
 - smooth path turns
 - ceilings and walls
 
+- editor??
+
 - desert level
 
 - running animation

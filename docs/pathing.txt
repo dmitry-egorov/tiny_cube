@@ -4,8 +4,6 @@
 - jump adds movement
 - fall
 
-
-
 + refactor to exclusive points
 
 -------THOUGHTS-------
@@ -18,14 +16,26 @@
 
 switch before applying airborne height
 
-jump adds moves
-apply velocity
-stop
-switch
-fall
-airborne height
-adjust height
++ jump adds moves
++ apply velocity
++ stop
++ switch
++ fall
++ airborne height
++ adjust height
 
+
+___....___
+
+___    ___
+
+__________
+
+
+
+   ____   
+___    ___
+   ____
 
 
         _______
