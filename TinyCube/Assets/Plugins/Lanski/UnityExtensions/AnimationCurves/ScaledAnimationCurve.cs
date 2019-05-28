@@ -20,11 +20,11 @@ namespace Plugins.Lanski.UnityExtensions.AnimationCurves
             return ms * Curve.Evaluate(at);
         }
 
-        public float GetLastTime() => Curve.GetLastTime() * TimeScale;
+        public float last_time => Curve.GetLastTime() * TimeScale;
 
         public float EvaluateSmoothOutside(float et, float dt)
         {
-            var lt = GetLastTime();
+            var lt = last_time;
             var ot = et - lt; // overtime
 
             float rv; // resulting value

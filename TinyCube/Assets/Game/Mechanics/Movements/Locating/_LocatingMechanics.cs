@@ -1,19 +1,19 @@
 ﻿using Plugins.Lanski.Subjective;
 using UnityEngine;
 
-namespace Game.Mechanics.Movements
+namespace Game.Mechanics.Movements.Locating
 {
-    public partial class _Movement
+    public class _LocatingMechanics: SubjectiveMechanics
     {
-        void Remember_last_location() =>
-            Do((Has_location l, Interpolates_location il) =>
+        public static void remember_last_location() =>
+            act((Has_location l, Interpolates_location il) =>
             {
                 il.LastLocation = l.location;
             })
         ;
 
-        void Apply_interpolated_location() =>
-            Do((Has_location l, Interpolates_location il) =>
+        public static void apply_interpolated_location() =>
+            act((Has_location l, Interpolates_location il) =>
             {
                 var ll = il.LastLocation;
                 var cl = l.location;
@@ -23,18 +23,18 @@ namespace Game.Mechanics.Movements
             })
         ;
 
-        void Debug_Remember_all_locations() =>
-            When<Interpolates_location, Debugs_location_interpolation>()
-            .Do((Has_location l) =>
+        public static void DEBUG_remember_all_locations() =>
+            when<Interpolates_location, Debugs_location_interpolation>()
+            .act((Has_location l) =>
             {
                 var r = get_or_add<Remembers_all_locations>();
                 r.Add(l.location);
             })
         ;
 
-        void Debug_Remember_all_transforms() =>
-            When<Interpolates_location, Debugs_location_interpolation>()
-            .Do(() =>
+        public static void DEBUG_remember_all_transforms() =>
+            when<Interpolates_location, Debugs_location_interpolation>()
+            .act(() =>
             {
                 var r = get_or_add<Remembers_all_transform_positions>();
                 r.Add(transform.position);

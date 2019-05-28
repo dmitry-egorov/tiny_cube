@@ -1,16 +1,17 @@
 using JetBrains.Annotations;
 using Plugins.Lanski.Subjective;
+using static Game.Mechanics.Cameras.Following.FollowingMechanics;
 
 namespace Game.Mechanics.Cameras
 {
     [UsedImplicitly]
-    public partial class _Camera: SSystem
+    public class CameraSystem: SubjectiveSystem
     {
         public override void Register()
         {
-            Presentation();
+            presentation();
             {
-                Follow_target();
+                follow_target();
             }
         }
     }

@@ -67,8 +67,8 @@ namespace Plugins.Lanski.Subjective
         internal bool contains_all(TypeMask included) => components_mask.contains_all(included);
         internal bool contains_any(TypeMask excluded) => components_mask.contains_any(excluded);
 
-        void OnEnable() => _token = SManager.Register(this);
-        void OnDisable() => SManager.Unregister(_token);
+        void OnEnable() => _token = SubjectiveManager.Register(this);
+        void OnDisable() => SubjectiveManager.Unregister(_token);
 
         TypeMask components_mask => _components_mask ?? (_components_mask = gather_component_mask());
 

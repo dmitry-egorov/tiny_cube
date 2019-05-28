@@ -5,14 +5,14 @@ using UnityEngine;
 namespace DefaultNamespace
 {
     [UsedImplicitly]
-    public class _Debug: SSystem
+    public class DebugSystem: SubjectiveSystem
     {
         public override void Register()
         {
-            Presentation();
-            Do(() =>
+            presentation();
+            act(() =>
             {
-                if (!get_input_key_down(KeyCode.P)) return;
+                if (!key_press_started(KeyCode.P)) return;
 
                 Debug.Break();
             })

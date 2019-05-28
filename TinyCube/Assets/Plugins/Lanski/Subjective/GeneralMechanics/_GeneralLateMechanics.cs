@@ -1,14 +1,14 @@
 using Plugins.Lanski.Subjective;
 
 [Late]
-public class _GeneralLateMechanics : SSystem
+public class _GeneralLateMechanics : SubjectiveSystem
 {
     public override void Register()
     {
-        Gameplay();
+        gameplay();
         {
-            ExceptWhen<Is_started>().
-                Do(() => add<Is_started>());            
+            except_when<Is_started>().
+                act(() => add<Is_started>());            
         }
     }
 }

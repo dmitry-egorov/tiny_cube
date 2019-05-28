@@ -1,4 +1,5 @@
 using Game.Mechanics.Movements;
+using Game.Mechanics.Movements.Paths;
 using Plugins.Lanski.Subjective;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -31,8 +32,5 @@ public class Follows_a_path: SubjectComponent
 
     public float direction_multiplier() => direction.multiplier();
 
-    public (Marks_a_waypoint_level, float) path_at(float d)
-    {
-        return level.path_at(d);
-    }
+    public (Marks_a_waypoint_level, float) path_at(float d) => level.path_at(d);
 }
