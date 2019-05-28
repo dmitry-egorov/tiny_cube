@@ -5,5 +5,5 @@ public class Moves : SubjectComponent
 {
     public float speed;
     
-    public void Stop() => RemoveSelf();
+    public void Stop() => subject.remove<Moves>();
 }

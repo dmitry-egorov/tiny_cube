@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Plugins.Lanski.ArrayExtensions;
 using Plugins.Lanski.ExtraCollections;
 using Plugins.Lanski.Reflections;
 using UnityEngine;
@@ -12,7 +10,7 @@ namespace Plugins.Lanski.Subjective
 {
     internal static class SManager
     {
-        public static Subject Subject {get; private set;}
+        public static Subject Subject => _subject;
 
         public static float DeltaTime => _deltaTime;
         public static float PresentationTimeRatio
@@ -53,162 +51,123 @@ namespace Plugins.Lanski.Subjective
         (
             string name, 
             Action action,
-            IEnumerable<Type> included = null, 
-            IEnumerable<Type> excluded = null
+            TypeMask included, 
+            TypeMask excluded
         )
         {
             Assert.IsNotNull(_gameplayMechanics);
             Assert.IsNotNull(_presentationMechanics);
 
-            var inc = (included ?? Enumerable.Empty<Type>()).ToArray();
-            var exc = (excluded ?? Enumerable.Empty<Type>()).ToArray();
-        
-            SelectMechanicsListForRegistration().Add((name, () =>
+            SelectMechanicsListForRegistration().Add(new RegisteredMechanic()
             {
-                if (inc.QAny(t => !Subject.Has(t)))
-                    return;
-                if (exc.QAny(t => Subject.Has(t)))
-                    return;
-
-                action();
-            }));
+                action = action,
+                name = name,
+                included = included,
+                excluded = excluded
+            });;
         }
 
         public static void Register<T1>
         (
             string name, 
             Action<T1> action,
-            IEnumerable<Type> included = null, 
-            IEnumerable<Type> excluded = null
+            TypeMask included, 
+            TypeMask excluded
         )
             where T1 : SubjectComponent
         {
-            Assert.IsNotNull(_gameplayMechanics);
-            Assert.IsNotNull(_presentationMechanics);
+            included.add<T1>();
+            Register(name, () =>
+                {
+                    var c1 = Subject.get<T1>();
 
-            var inc = (included ?? Enumerable.Empty<Type>()).ToArray();
-            var exc = (excluded ?? Enumerable.Empty<Type>()).ToArray();
-        
-            SelectMechanicsListForRegistration().Add((name, () =>
-            {
-                if (inc.QAny(t => !Subject.Has(t)))
-                    return;
-                if (exc.QAny(t => Subject.Has(t)))
-                    return;
-
-                if (!Subject.TryGet(out T1 c1))
-                    return;
-
-                action(c1);
-            }));
+                    action(c1);
+                },
+                included, 
+                excluded
+            );
         }
     
         public static void Register<T1, T2>
         (
             string name, 
             Action<T1, T2> action,
-            IEnumerable<Type> included = null, 
-            IEnumerable<Type> excluded = null
+            TypeMask included, 
+            TypeMask excluded
         )
             where T1 : SubjectComponent
             where T2 : SubjectComponent
         {
-            Assert.IsNotNull(_gameplayMechanics);
-            Assert.IsNotNull(_presentationMechanics);
-        
-            var inc = (included ?? Enumerable.Empty<Type>()).ToArray();
-            var exc = (excluded ?? Enumerable.Empty<Type>()).ToArray();
-        
-            SelectMechanicsListForRegistration()
-            .Add((name, () =>
-            {
-                if (inc.QAny(t => !Subject.Has(t)))
-                    return;
-                if (exc.QAny(t => Subject.Has(t)))
-                    return;
+            included.add<T1>();
+            included.add<T2>();
+            Register(name, () =>
+                {
+                    var c1 = Subject.get<T1>();
+                    var c2 = Subject.get<T2>();
 
-                if (!Subject.TryGet(out T1 c1))
-                    return;
-                if (!Subject.TryGet(out T2 c2))
-                    return;
-
-                action(c1, c2);
-            }));
+                    action(c1, c2);
+                },
+                included, 
+                excluded
+            );
         }
     
         public static void Register<T1, T2, T3>
         (
             string name, 
-            Action<T1, T2, T3> action, 
-            IEnumerable<Type> included = null, 
-            IEnumerable<Type> excluded = null
+            Action<T1, T2, T3> action,
+            TypeMask included, 
+            TypeMask excluded
         )
             where T1 : SubjectComponent
             where T2 : SubjectComponent
             where T3 : SubjectComponent
         {
-            Assert.IsNotNull(_gameplayMechanics);
-            Assert.IsNotNull(_presentationMechanics);
-        
-            var inc = (included ?? Enumerable.Empty<Type>()).ToArray();
-            var exc = (excluded ?? Enumerable.Empty<Type>()).ToArray();
-        
-            SelectMechanicsListForRegistration()
-            .Add((name, () =>
-            {
-                if (inc.QAny(t => !Subject.Has(t)))
-                    return;
-                if (exc.QAny(t => Subject.Has(t)))
-                    return;
+            included.add<T1>();
+            included.add<T2>();
+            included.add<T3>();
+            Register(name, () =>
+                {
+                    var c1 = Subject.get<T1>();
+                    var c2 = Subject.get<T2>();
+                    var c3 = Subject.get<T3>();
 
-                if (!Subject.TryGet(out T1 c1))
-                    return;
-                if (!Subject.TryGet(out T2 c2))
-                    return;
-                if (!Subject.TryGet(out T3 c3))
-                    return;
-
-                action(c1, c2, c3);
-            }));
+                    action(c1, c2, c3);
+                },
+                included, 
+                excluded
+            );
         }
     
         public static void Register<T1, T2, T3, T4>
         (
             string name, 
-            Action<T1, T2, T3, T4> action, 
-            IEnumerable<Type> included = null, 
-            IEnumerable<Type> excluded = null
+            Action<T1, T2, T3, T4> action,
+            TypeMask included, 
+            TypeMask excluded
         )
             where T1 : SubjectComponent
             where T2 : SubjectComponent
             where T3 : SubjectComponent
             where T4 : SubjectComponent
         {
-            Assert.IsNotNull(_gameplayMechanics);
-            Assert.IsNotNull(_presentationMechanics);
-        
-            var inc = (included ?? Enumerable.Empty<Type>()).ToArray();
-            var exc = (excluded ?? Enumerable.Empty<Type>()).ToArray();
-        
-            SelectMechanicsListForRegistration()
-            .Add((name, () =>
-            {
-                if (inc.QAny(t => !Subject.Has(t)))
-                    return;
-                if (exc.QAny(t => Subject.Has(t)))
-                    return;
+            included.add<T1>();
+            included.add<T2>();
+            included.add<T3>();
+            included.add<T4>();
+            
+            Register(name, () =>
+                {
+                    var c1 = Subject.get<T1>();
+                    var c2 = Subject.get<T2>();
+                    var c3 = Subject.get<T3>();
+                    var c4 = Subject.get<T4>();
 
-                if (!Subject.TryGet(out T1 c1))
-                    return;
-                if (!Subject.TryGet(out T2 c2))
-                    return;
-                if (!Subject.TryGet(out T3 c3))
-                    return;
-                if (!Subject.TryGet(out T4 c4))
-                    return;
-
-                action(c1, c2, c3, c4);
-            }));
+                    action(c1, c2, c3, c4);
+                },
+                included, 
+                excluded
+            );
         }
 
         public static void Execute(float dt, float fdt)
@@ -236,22 +195,7 @@ namespace Plugins.Lanski.Subjective
                     Profiler.BeginSample("Gameplay Mechanics");
                     try
                     {
-                        foreach (var m in _gameplayMechanics)
-                        {
-                            Profiler.BeginSample(m.name);
-                            try
-                            {
-                                foreach (var s in _subjects)
-                                {
-                                    Subject = s;
-                                    m.action();
-                                }
-                            }
-                            finally
-                            {
-                                Profiler.EndSample();
-                            }
-                        }
+                        ExecuteMechanics(_gameplayMechanics);
 
                         foreach (var keyWatcher in _keyWatchers)
                         {
@@ -271,7 +215,7 @@ namespace Plugins.Lanski.Subjective
                 _currentMechanicStage = MechanicStage.Unknown;
             }
         }
-        
+
         static void ExecutePresentationMechanics(float dt, float fdt)
         {
             Profiler.BeginSample("Presentation Mechanics");
@@ -281,22 +225,7 @@ namespace Plugins.Lanski.Subjective
                 _deltaTime = dt;
                 _presentationTimeRatio = (float)((_presentationTime - (_gameplayTime - fdt)) / fdt);
                     
-                foreach (var m in _presentationMechanics)
-                {
-                    Profiler.BeginSample(m.name);
-                    try
-                    {
-                        foreach (var s in _subjects)
-                        {
-                            Subject = s;
-                            m.action();
-                        }
-                    }
-                    finally
-                    {
-                        Profiler.EndSample();
-                    }
-                }
+                ExecuteMechanics(_presentationMechanics);
             }
             finally
             {
@@ -305,7 +234,33 @@ namespace Plugins.Lanski.Subjective
             }
         }
 
-        static List<(string name, Action action)> SelectMechanicsListForRegistration() => 
+        static void ExecuteMechanics(List<RegisteredMechanic> mechanics)
+        {
+            foreach (var m in mechanics)
+            {
+                Profiler.BeginSample(m.name);
+                try
+                {
+                    foreach (var s in _subjects)
+                    {
+                        _subject = s;
+
+                        if (!s.contains_all(m.included))
+                            continue;
+                        if (s.contains_any(m.excluded))
+                            continue;
+
+                        m.action();
+                    }
+                }
+                finally
+                {
+                    Profiler.EndSample();
+                }
+            }
+        }
+
+        static List<RegisteredMechanic> SelectMechanicsListForRegistration() => 
             _currentRegistrationStage == MechanicStage.Gameplay ? _gameplayMechanics : _presentationMechanics
         ;
 
@@ -326,15 +281,15 @@ namespace Plugins.Lanski.Subjective
         
             _keyWatchersMap = new Dictionary<KeyCode, GameplayKeyWatcher>();
             _keyWatchers = new List<GameplayKeyWatcher>();
-            _gameplayMechanics = new List<(string, Action)>();
-            _presentationMechanics = new List<(string, Action)>();
+            _gameplayMechanics = new List<RegisteredMechanic>();
+            _presentationMechanics = new List<RegisteredMechanic>();
 
-            var late_systems = new List<ISystem>();
+            var /* late systems */ ls = new List<ISystem>();
             foreach (var s in AppDomain.CurrentDomain.InstantiateAllDerivedTypes<ISystem>())
             {
                 if (s.GetType().IsDefined(typeof(LateAttribute), false))
                 {
-                    late_systems.Add(s);
+                    ls.Add(s);
                     continue;
                 }
                 
@@ -342,7 +297,7 @@ namespace Plugins.Lanski.Subjective
                 s.Register();
             }
 
-            foreach (var s in late_systems)
+            foreach (var s in ls)
             {
                 SetToPresentationRegistration();
                 s.Register();
@@ -350,8 +305,8 @@ namespace Plugins.Lanski.Subjective
         }
 
         static ShuffleList<Subject> _subjects;
-        static List<(string name, Action action)> _gameplayMechanics;
-        static List<(string name, Action action)> _presentationMechanics;
+        static List<RegisteredMechanic> _gameplayMechanics;
+        static List<RegisteredMechanic> _presentationMechanics;
         static Dictionary<KeyCode, GameplayKeyWatcher> _keyWatchersMap;
         static List<GameplayKeyWatcher> _keyWatchers;
         static MechanicStage _currentRegistrationStage;
@@ -361,5 +316,14 @@ namespace Plugins.Lanski.Subjective
         static float _deltaTime;
         static double _presentationTime;
         static double _gameplayTime;
+        static Subject _subject;
+
+        struct RegisteredMechanic
+        {
+            public string name;
+            public Action action;
+            public TypeMask included;
+            public TypeMask excluded;
+        }
     }
 }

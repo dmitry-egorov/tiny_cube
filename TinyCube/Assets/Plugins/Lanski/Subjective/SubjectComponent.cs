@@ -5,10 +5,10 @@ namespace Plugins.Lanski.Subjective
     [RequireComponent(typeof(Subject))]
     public abstract class SubjectComponent: MonoBehaviour
     {
-        void Start() => Subject = GetComponent<Subject>();
-
-        protected void RemoveSelf() => Subject.Remove(GetType()); 
-
-        protected Subject Subject;
+        public void Start() {}
+        
+        protected Subject subject => _subject != null ? _subject : _subject = GetComponent<Subject>();
+        
+        Subject _subject;
     }
 }

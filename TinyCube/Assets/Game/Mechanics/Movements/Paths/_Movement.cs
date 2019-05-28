@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 using static Direction;
 
 namespace Game.Mechanics.Movements
@@ -168,9 +167,20 @@ namespace Game.Mechanics.Movements
                 var mr = cf.fall_detection_margin;
                 var hw = cf.half_width() - mr;
 
-                var l = fih ? fi.level : bi.level;
-                var d = fih ? fi.distance - hw : bi.distance + hw;
-                fp.switch_to(l, d);
+                var /* old height   */ oh = fp.path_height;
+                var /* new level    */ nl = fih ? fi.level : bi.level;
+                var /* new distance */ nd = fih ? fi.distance - hw : bi.distance + hw;
+                fp.switch_to(nl, nd);
+                
+                var nh = fp.path_height;
+
+                if (oh > nh && !has<Is_airborne>() && try_get<Can_fall>(out var cfl))
+                {
+                    var ab = add<Is_airborne>();
+                    ab.elapsed_time = 0;
+                    ab.starting_height = oh;
+                    ab.height_curve = cfl.height_curve;
+                }
             })
         ;
     }

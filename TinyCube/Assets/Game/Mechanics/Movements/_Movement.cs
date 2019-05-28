@@ -30,16 +30,12 @@ namespace Game.Mechanics.Movements
                 Start_moving_when_jumping();
             
                 Apply_paths_movement_velocity();
+                Apply_airborne_height();
+                Land_when_height_is_below_path();
+                
                 Stop_when_reaching_a_wall();
                 Apply_adjacent_intersections();
                 Switch_to_a_higher_intersected_path();
-                //Switch_to_the_highest_path_below();
-                //Handle_walking_beyond_the_path();
-                Apply_airborne_height();
-                Land_when_height_is_below_path();
-                Become_airborne_when_height_is_above_path();
-                
-                
                 Apply_paths_height_when_not_airborne();
                 
                 Apply_paths_location();
