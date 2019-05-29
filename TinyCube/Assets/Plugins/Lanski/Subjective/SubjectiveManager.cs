@@ -30,7 +30,7 @@ namespace Plugins.Lanski.Subjective
         
         internal static Subject subject => _subject;
 
-        internal static float delta_time => _deltaTime;
+        public static float delta_time => _deltaTime;
         internal static float presentation_time_ratio
         {
             get
@@ -208,7 +208,7 @@ namespace Plugins.Lanski.Subjective
                     {
                         ExecuteMechanics(_gameplayMechanics);
 
-                        SubjectiveInput.Update();
+                        SubjectiveInput.update();
                     }
                     finally
                     {

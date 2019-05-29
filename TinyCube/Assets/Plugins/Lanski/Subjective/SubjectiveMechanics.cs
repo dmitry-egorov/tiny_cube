@@ -1,4 +1,5 @@
 using System;
+using Plugins.Lanski.ArrayExtensions;
 using Plugins.Lanski.Reflections;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ namespace Plugins.Lanski.Subjective
         protected static MechanicRegistration except_when<T>() 
             where T: SubjectComponent 
             => new MechanicRegistration().except_when<T>();
+        
+        protected static MechanicRegistration except_when<T1, T2>() 
+            where T1: SubjectComponent 
+            where T2 : SubjectComponent => 
+            new MechanicRegistration().except_when<T1, T2>();
 
         protected static void act(Action a) 
             => SubjectiveManager.Register(Reflect.CallingMethodName(), a, new TypeMask(), new TypeMask());
@@ -59,8 +65,39 @@ namespace Plugins.Lanski.Subjective
         protected static TC get_or_add<TC>() where TC : SubjectComponent => subject.get_or_add<TC>();
         protected static TC require<TC>() where TC : SubjectComponent => subject.require<TC>();
         protected static void remove<TC>() where TC : SubjectComponent => subject.remove<TC>();
+        
+        
 
-        protected static bool key_is_pressed(KeyCode i) => SubjectiveInput.GetKey(i);
-        protected static bool key_press_started(KeyCode i) => SubjectiveInput.GetKeyDown(i);
+        protected static bool key_is_pressed(KeyCode i) => SubjectiveInput.get_key(i);
+        protected static bool key_press_started(KeyCode i) => SubjectiveInput.get_key_down(i);
+        protected static bool try_get_mouse_drag_complete(out MouseDrag d) => SubjectiveInput.try_get_mouse_drag_complete(out d);
+        
+
+        protected static void act_remove<T>() where T : SubjectComponent =>
+            when<T>()
+            .act(() => remove<T>())
+        ;
+        
+        protected static void act_request_action_on_key_press_start<TKeySpecifier, TActionRequest>()
+            where TKeySpecifier: SubjectComponent, IKeySpecifier 
+            where TActionRequest : SubjectComponent =>
+        act((TKeySpecifier jc) =>
+        {
+            if (jc.get_keys().any(code => key_press_started(code)))
+            {
+                get_or_add<TActionRequest>();
+            }
+        });
+        
+        protected static void act_request_action_on_key_hold<TKeySpecifier, TActionRequest>()
+            where TKeySpecifier: SubjectComponent, IKeySpecifier 
+            where TActionRequest : SubjectComponent =>
+        act((TKeySpecifier jc) =>
+        {
+            if (jc.get_keys().any(code => key_is_pressed(code)))
+            {
+                get_or_add<TActionRequest>();
+            }
+        });
     }
 }

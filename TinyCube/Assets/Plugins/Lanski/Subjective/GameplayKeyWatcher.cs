@@ -9,15 +9,17 @@ namespace Plugins.Lanski.Subjective
             _key = key;
         }
 
-        public void Update()
+        public void update()
         {
             _keyWasHeldLastUpdate = Input.GetKey(_key);
         }
         
-        public bool GetKeyDown()
+        public bool get_key_down()
         {
             return Input.GetKey(_key) && !_keyWasHeldLastUpdate;
         }
+
+        public bool get_key_up() => !Input.GetKey(_key) && _keyWasHeldLastUpdate;
 
         bool _keyWasHeldLastUpdate;
         readonly KeyCode _key;

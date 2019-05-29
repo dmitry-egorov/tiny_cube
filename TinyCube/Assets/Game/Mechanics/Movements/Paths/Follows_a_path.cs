@@ -16,6 +16,7 @@ public class Follows_a_path: SubjectComponent
     public float path_length => level.length;
     public Quaternion rotation => level.rotation_for(direction);
     public Marks_a_waypoint_level[] levels => level.levels;
+    public Vector3 travel_direction => direction.multiplier() * level.direction.normalized;
 
     public void switch_to(Marks_a_waypoint_level l, float new_distance)
     {
@@ -33,4 +34,6 @@ public class Follows_a_path: SubjectComponent
     public float direction_multiplier() => direction.multiplier();
 
     public (Marks_a_waypoint_level, float) path_at(float d) => level.path_at(d);
+
+    public void reverse_direction() => direction = direction.opposite();
 }

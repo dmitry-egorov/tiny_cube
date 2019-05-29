@@ -378,10 +378,14 @@ GameObject:
   - component: {fileID: 7915152541207696684}
   - component: {fileID: 2093489025018890620}
   - component: {fileID: 1693020074159625385}
+  - component: {fileID: 711018237807329231}
+  - component: {fileID: 3423652007461959512}
   - component: {fileID: 8777973247711213996}
+  - component: {fileID: 3353647713775958820}
+  - component: {fileID: 1616109684217153207}
+  - component: {fileID: 8346674240210898056}
   - component: {fileID: 8034789282864333172}
   - component: {fileID: 7018840057477933172}
-  - component: {fileID: 3353647713775958820}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -442,9 +446,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffa2630a96064779879e7d244e93b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall_detection_width: 1
-  fall_detection_width: 0.98
+  width: 1
   rotates: 1
+  fall_detection_margin: 0.05
+  follow_closest_point_on_start: 1
 --- !u!114 &1693020074159625385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   moves_on_start: 1
---- !u!114 &8777973247711213996
+--- !u!114 &711018237807329231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -468,37 +473,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3402345231541126939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ee0c5fe5e19245ef944b545a6c74bb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 4678c9ae939d4db4bfacfe0ca6e76409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height_curve:
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: -1
-        inSlope: -2.417025
-        outSlope: -2.417025
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.063332915
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    Magnitude: 13
-    TimeScale: 0.6
---- !u!114 &8034789282864333172
+  move_when_turning_around: 1
+--- !u!114 &3423652007461959512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,33 +486,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3402345231541126939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a88897efcadd404389535d919b100bcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LastLocation: {x: 0, y: 0, z: 0}
---- !u!114 &7018840057477933172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3402345231541126939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcbd4d0e66ab4205bf8d9c0b4eed48c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LastRotation: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3353647713775958820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3402345231541126939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9223759ec14014e9ebb60ef0c2b15fa3, type: 3}
+  m_Script: {fileID: 11500000, guid: 427e025e958e40e4a0c846fff242c7fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jumping_curve:
@@ -590,6 +543,111 @@ MonoBehaviour:
       m_RotationOrder: 4
     Magnitude: 13
     TimeScale: 0.6
+  request_cahing_time: 0.05
+--- !u!114 &8777973247711213996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee0c5fe5e19245ef944b545a6c74bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height_curve:
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: -2.417025
+        outSlope: -2.417025
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.063332915
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    Magnitude: 13
+    TimeScale: 0.6
+--- !u!114 &3353647713775958820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9223759ec14014e9ebb60ef0c2b15fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keys: 4301000020000000
+--- !u!114 &1616109684217153207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df35a0d4342459688741df715d1d22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keys: 72000000
+--- !u!114 &8346674240210898056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de89b7dfa9b40508281334273d9d6c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation_magnitude: 3
+--- !u!114 &8034789282864333172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88897efcadd404389535d919b100bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastLocation: {x: 0, y: 0, z: 0}
+--- !u!114 &7018840057477933172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402345231541126939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcbd4d0e66ab4205bf8d9c0b4eed48c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8700188705216322535
 GameObject:
   m_ObjectHideFlags: 0

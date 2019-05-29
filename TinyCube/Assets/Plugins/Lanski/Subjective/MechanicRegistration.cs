@@ -37,31 +37,37 @@ namespace Plugins.Lanski.Subjective
             return this;
         }
 
-        public void act(Action a) => SubjectiveManager.Register(Reflect.CallingMethodName(), a, _included, _excluded);
-        public void act<T1>(Action<T1> a) 
+        public MechanicRegistration except_when<T1, T2>()
+            where T1 : SubjectComponent
+            where T2 : SubjectComponent
+            => except_when<T1>().except_when<T2>()
+        ;
+
+        public void act(Action a, string name = null) => SubjectiveManager.Register(name ?? Reflect.CallingMethodName(), a, _included, _excluded);
+        public void act<T1>(Action<T1> a, string name = null) 
             where T1: SubjectComponent 
-            => SubjectiveManager.Register(Reflect.CallingMethodName(), a, _included, _excluded)
+            => SubjectiveManager.Register(name ?? Reflect.CallingMethodName(), a, _included, _excluded)
         ;
         
-        public void act<T1, T2>(Action<T1, T2> a) 
+        public void act<T1, T2>(Action<T1, T2> a, string name = null) 
             where T1: SubjectComponent 
             where T2: SubjectComponent 
-            => SubjectiveManager.Register(Reflect.CallingMethodName(), a, _included, _excluded)
+            => SubjectiveManager.Register(name ?? Reflect.CallingMethodName(), a, _included, _excluded)
         ;
         
-        public void act<T1, T2, T3>(Action<T1, T2, T3> a) 
+        public void act<T1, T2, T3>(Action<T1, T2, T3> a, string name = null) 
             where T1: SubjectComponent 
             where T2: SubjectComponent 
             where T3: SubjectComponent 
-            => SubjectiveManager.Register(Reflect.CallingMethodName(), a, _included, _excluded)
+            => SubjectiveManager.Register(name ?? Reflect.CallingMethodName(), a, _included, _excluded)
         ;
         
-        public void act<T1, T2, T3, T4>(Action<T1, T2, T3, T4> a) 
+        public void act<T1, T2, T3, T4>(Action<T1, T2, T3, T4> a, string name = null) 
             where T1: SubjectComponent 
             where T2: SubjectComponent 
             where T3: SubjectComponent 
             where T4: SubjectComponent 
-            => SubjectiveManager.Register(Reflect.CallingMethodName(), a, _included, _excluded)
+            => SubjectiveManager.Register(name ?? Reflect.CallingMethodName(), a, _included, _excluded)
         ;
         
         readonly TypeMask _included;

@@ -6,9 +6,9 @@ namespace Game.Mechanics.Movements.Paths
     public class _PathsMechanics: SubjectiveMechanics
     {
         public static void check_paths_prev_next_pointers_on_start() => // prev/next pointers
-        except_when<Is_started>()
-        .when<Checks_paths_consistency_on_start>()
-        .act(() =>
+        except_when<Is_started>().
+        when<Checks_paths_consistency_on_start>().
+        act(() =>
         {
             var ls = Object.FindObjectsOfType<Marks_a_waypoint_level>();
             foreach (var l in ls)
@@ -21,9 +21,9 @@ namespace Game.Mechanics.Movements.Paths
         });
 
         public static void check_paths_levels_order_on_start() => // prev/next pointers
-        except_when<Is_started>()
-        .when<Checks_paths_consistency_on_start>()
-        .act(() =>
+        except_when<Is_started>().
+        when<Checks_paths_consistency_on_start>().
+        act(() =>
         {
             var ps = Object.FindObjectsOfType<Marks_a_waypoint>();
             foreach (var p in ps)
@@ -45,30 +45,30 @@ namespace Game.Mechanics.Movements.Paths
         except_when<Is_started>().
         act((Can_follow_a_path cf) =>
         {
-            if (cf.follow_closest_point_on_start)
+            if (!cf.follow_closest_point_on_start) 
+                return;
+            
+            var p = transform.position;
+            var ls = Object.FindObjectsOfType<Marks_a_waypoint_level>();
+            var /* min distance  */ md = float.MaxValue;
+            var /* closest level */ cl = default(Marks_a_waypoint_level);
+            foreach (var l in ls)
             {
-                var p = transform.position;
-                var ls = Object.FindObjectsOfType<Marks_a_waypoint_level>();
-                var /* min distance  */ md = float.MaxValue;
-                var /* closest level */ cl = default(Marks_a_waypoint_level);
-                foreach (var l in ls)
+                var d = (l.position - p).magnitude;
+                if (d < md)
                 {
-                    var d = (l.position - p).magnitude;
-                    if (d < md)
-                    {
-                        md = d;
-                        cl = l;
-                    }
+                    md = d;
+                    cl = l;
                 }
-
-                var fp = add<Follows_a_path>();
-                fp.level = cl;
             }
+
+            var fp = add<Follows_a_path>();
+            fp.level = cl;
         });
 
         public static void add_height_when_following_a_path() =>
-        except_when<Has_height>()
-        .act((Follows_a_path fp) =>
+        except_when<Has_height>().
+        act((Follows_a_path fp) =>
         {
             var hh = add<Has_height>();
             hh.height = fp.path_height;
@@ -82,8 +82,8 @@ namespace Game.Mechanics.Movements.Paths
         });
 
         public static void apply_paths_height_when_not_airborne() =>
-        except_when<Is_airborne>()
-        .act((Follows_a_path f, Has_height l) =>
+        except_when<Is_airborne>().
+        act((Follows_a_path f, Has_height l) =>
         {
             l.height = f.path_height;
         });
@@ -278,5 +278,6 @@ namespace Game.Mechanics.Movements.Paths
         }
         
         public static float multiplier(this Direction d) => d == Direction.Front ? 1f : -1f;
+        public static Direction opposite(this Direction d) => d == Direction.Front ? Direction.Back : Direction.Front;
     }
 }

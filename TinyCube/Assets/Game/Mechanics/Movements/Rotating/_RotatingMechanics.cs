@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Mechanics.Movements.Rotating
 {
-    public partial class _RotatingMechanics: SubjectiveMechanics
+    public class _RotatingMechanics: SubjectiveMechanics
     {
         public static void remember_last_rotation() =>
         act((Has_rotation r, Interpolates_rotation ir) =>
